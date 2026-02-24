@@ -1,0 +1,4802 @@
+[
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "There is a problem",
+    "label": "Complaint"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Request new service",
+    "label": "New_Connection"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "There is a problem",
+    "label": "Complaint"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Just calling to ask information",
+    "label": "Other"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "amount වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "new registration",
+    "label": "New_Connection"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Request new service",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Request new service",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "new registration",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Customer support needed",
+    "label": "Other"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "general inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "amount වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "urgent fix",
+    "label": "Complaint"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Request new service",
+    "label": "New_Connection"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "new registration",
+    "label": "New_Connection"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Just calling to ask information",
+    "label": "Other"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "fault check කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Customer support needed",
+    "label": "Other"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Just calling to ask information",
+    "label": "Other"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "general inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "There is a problem",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "new registration",
+    "label": "New_Connection"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Request new service",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "general inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "There is a problem",
+    "label": "Complaint"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Billing issue",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "amount වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "Just calling to ask information",
+    "label": "Other"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Price inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "TV connection issue",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "Upgrade my plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "amount වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Internet speed is low",
+    "label": "Fiber"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Line fault detected",
+    "label": "Complaint"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Customer support needed",
+    "label": "Other"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Set top box not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "payment කළා",
+    "label": "Billing"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "plan details",
+    "label": "Other"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "availability check",
+    "label": "Other"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "new registration",
+    "label": "New_Connection"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "general inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "I want to make a complaint",
+    "label": "Complaint"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Urgent issue",
+    "label": "Complaint"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Connection activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Overcharged",
+    "label": "Billing"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "service info",
+    "label": "Other"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Due date problem",
+    "label": "Billing"
+  },
+  {
+    "text": "internet නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "No signal on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "Service not working",
+    "label": "Complaint"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "බිල් වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "wifi වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "display error",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "connection disconnect වෙනවා",
+    "label": "Fiber"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "price check",
+    "label": "Other"
+  },
+  {
+    "text": "Fiber disconnecting frequently",
+    "label": "Fiber"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "video buffering issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "activate කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "signal weak",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "complaint එකක් තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Connection unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "PEO TV not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "වැඩ නෑ",
+    "label": "Complaint"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "internet connection නැහැ",
+    "label": "Fiber"
+  },
+  {
+    "text": "Invoice not received",
+    "label": "Billing"
+  },
+  {
+    "text": "details ඕන",
+    "label": "Other"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "slow browsing",
+    "label": "Fiber"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "picture freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "outstanding තියෙනවා",
+    "label": "Billing"
+  },
+  {
+    "text": "billing error",
+    "label": "Billing"
+  },
+  {
+    "text": "new connection එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "New internet required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "repair කරන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "technician එවන්න",
+    "label": "Complaint"
+  },
+  {
+    "text": "මගේ internet slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "remote වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "package info",
+    "label": "Other"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Charged extra amount",
+    "label": "Billing"
+  },
+  {
+    "text": "Register new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "General inquiry",
+    "label": "Other"
+  },
+  {
+    "text": "network unstable",
+    "label": "Fiber"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Screen black",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "upgrade plan",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "information දැනගන්න",
+    "label": "Other"
+  },
+  {
+    "text": "amount වැඩි",
+    "label": "Billing"
+  },
+  {
+    "text": "Broadband issue",
+    "label": "Fiber"
+  },
+  {
+    "text": "Package comparison",
+    "label": "Other"
+  },
+  {
+    "text": "New broadband line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Just calling to ask information",
+    "label": "Other"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Service details required",
+    "label": "Other"
+  },
+  {
+    "text": "Remote not working",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Wifi not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Bill clarification needed",
+    "label": "Billing"
+  },
+  {
+    "text": "My bill is too high",
+    "label": "Billing"
+  },
+  {
+    "text": "box වැඩ නෑ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "apply new line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Payment failed",
+    "label": "Billing"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "support needed",
+    "label": "Other"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "Reboot box required",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "charge කරලා",
+    "label": "Billing"
+  },
+  {
+    "text": "High latency problem",
+    "label": "Fiber"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "invoice නැහැ",
+    "label": "Billing"
+  },
+  {
+    "text": "Installation required",
+    "label": "New_Connection"
+  },
+  {
+    "text": "install කරන්න",
+    "label": "New_Connection"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Channel missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "payment problem",
+    "label": "Billing"
+  },
+  {
+    "text": "Repair needed",
+    "label": "Complaint"
+  },
+  {
+    "text": "Technician required",
+    "label": "Complaint"
+  },
+  {
+    "text": "Activate my line",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Information request",
+    "label": "Other"
+  },
+  {
+    "text": "speed අඩුයි",
+    "label": "Fiber"
+  },
+  {
+    "text": "channel list missing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Outstanding balance",
+    "label": "Billing"
+  },
+  {
+    "text": "router වැඩ නෑ",
+    "label": "Fiber"
+  },
+  {
+    "text": "internet install",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "poor service",
+    "label": "Complaint"
+  },
+  {
+    "text": "පියෝ ටීවී signal නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "bill check කරන්න",
+    "label": "Billing"
+  },
+  {
+    "text": "Service down",
+    "label": "Complaint"
+  },
+  {
+    "text": "Need information about packages",
+    "label": "Other"
+  },
+  {
+    "text": "tv connection problem",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "I need a new connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "No internet connection",
+    "label": "Fiber"
+  },
+  {
+    "text": "Payment already done",
+    "label": "Billing"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "line එකක් ඕන",
+    "label": "New_Connection"
+  },
+  {
+    "text": "channel නැහැ",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Bad service",
+    "label": "Complaint"
+  },
+  {
+    "text": "problem තියෙනවා",
+    "label": "Complaint"
+  },
+  {
+    "text": "issue unresolved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "tv reboot needed",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Apply for new fiber",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Problem not solved",
+    "label": "Complaint"
+  },
+  {
+    "text": "Router not working",
+    "label": "Fiber"
+  },
+  {
+    "text": "refund request",
+    "label": "Billing"
+  },
+  {
+    "text": "service activation",
+    "label": "New_Connection"
+  },
+  {
+    "text": "My internet is very slow",
+    "label": "Fiber"
+  },
+  {
+    "text": "Packet loss happening",
+    "label": "Fiber"
+  },
+  {
+    "text": "Audio not working on TV",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "Channel freezing",
+    "label": "PEO_TV"
+  },
+  {
+    "text": "new fiber connection",
+    "label": "New_Connection"
+  },
+  {
+    "text": "Checking service availability",
+    "label": "Other"
+  },
+  {
+    "text": "Location coverage check",
+    "label": "Other"
+  }
+]

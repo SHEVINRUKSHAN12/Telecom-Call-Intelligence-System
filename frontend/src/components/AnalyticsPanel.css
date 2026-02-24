@@ -1,0 +1,141 @@
+.analytics-panel {
+  background: var(--panel);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  display: grid;
+  gap: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.analytics-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.6rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.analytics-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.total-calls {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+/* Sections */
+.analytics-section {
+  display: grid;
+  gap: 10px;
+}
+
+.analytics-label {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Category Bars */
+.category-bars {
+  display: grid;
+  gap: 8px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 36px;
+  gap: 10px;
+  align-items: center;
+  animation: fadeInUp 0.3s ease both;
+}
+
+.bar-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  height: 8px;
+  background: rgba(100, 130, 160, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  animation: fillBar 0.6s ease both;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.bar-count {
+  font-size: 0.82rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* Sparkline */
+.sparkline {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 6px;
+  align-items: end;
+  height: 100px;
+  padding-top: 8px;
+}
+
+.spark-bar {
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  gap: 5px;
+  font-size: 0.6rem;
+  color: var(--muted);
+  cursor: default;
+  transition: transform 0.2s ease;
+}
+
+.spark-bar:hover {
+  transform: scaleY(1.05);
+}
+
+.spark-fill {
+  width: 100%;
+  min-width: 14px;
+  background: linear-gradient(to top, rgba(59, 130, 246, 0.3), rgba(16, 185, 129, 0.4));
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+  min-height: 2px;
+}
+
+.spark-bar:hover .spark-fill {
+  background: linear-gradient(to top, rgba(59, 130, 246, 0.5), rgba(16, 185, 129, 0.6));
+}
+
+.empty-text {
+  color: var(--muted);
+  font-size: 0.82rem;
+}

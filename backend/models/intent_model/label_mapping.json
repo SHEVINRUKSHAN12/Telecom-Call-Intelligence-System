@@ -1,0 +1,18 @@
+{
+  "id2label": {
+    "0": "Billing",
+    "1": "Complaint",
+    "2": "Fiber",
+    "3": "New_Connection",
+    "4": "Other",
+    "5": "PEO_TV"
+  },
+  "label2id": {
+    "Billing": 0,
+    "Complaint": 1,
+    "Fiber": 2,
+    "New_Connection": 3,
+    "Other": 4,
+    "PEO_TV": 5
+  }
+}
