@@ -1,11 +1,5 @@
-# Environments
-.env
-*.env
+# Virtual environments (not needed - teammates install their own)
 .venv/
-
-# Secrets / Credentials
-*credentials*.json
-*service-account*.json
 env/
 venv/
 ENV/
@@ -13,7 +7,10 @@ env.bak/
 venv.bak/
 backend/venv/
 
-# Python
+# Google credentials (blocked by GitHub secret scanning)
+backend/google-credentials.json
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
@@ -25,10 +22,11 @@ dist/
 build/
 .npm/
 
-# Large model files (GitHub rejects files > 100MB)
+# Large model weight files (GitHub rejects files > 100MB)
+# These files are 1-2 GB each and CANNOT be pushed to GitHub
 *.safetensors
 *.pt
-backend/models/intent_model/checkpoints/
+*.pth
 
 # Logs
 logs/
@@ -42,7 +40,6 @@ yarn-error.log*
 Thumbs.db
 
 # Temp files
-large_files.txt
-large_files_clean.txt
-push_error.txt
 .logs/
+sizes.txt
+sizes2.txt
