@@ -24,7 +24,6 @@
 - [API Endpoints](#-api-endpoints)
 - [Frontend Components](#-frontend-components)
 - [ML Models](#-ml-models)
-- [Team Members](#-team-members)
 
 ---
 
@@ -505,9 +504,9 @@ Training data is in `backend/data/dataset.json`.
 
 ---
 
-##  License
+## 📄 License
 
-This project is developed for academic/research purposes.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
