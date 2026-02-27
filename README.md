@@ -505,15 +505,7 @@ Training data is in `backend/data/dataset.json`.
 
 ---
 
-## 👥 Team Members
-
-| Name | Role |
-|------|------|
-| Shevin Rukshan | Developer |
-
----
-
-## 📄 License
+##  License
 
 This project is developed for academic/research purposes.
 
