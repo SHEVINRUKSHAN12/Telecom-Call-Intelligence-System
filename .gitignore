@@ -1,5 +1,6 @@
 # Virtual environments (not needed - teammates install their own)
 .venv/
+backend/.venv/
 env/
 venv/
 ENV/
@@ -7,17 +8,23 @@ env.bak/
 venv.bak/
 backend/venv/
 
+# Local environment files
+backend/.env
+backend/.env.local
+
 # Google credentials (blocked by GitHub secret scanning)
 backend/google-credentials.json
 
 # Python cache
 __pycache__/
+backend/__pycache__/
 *.py[cod]
 *$py.class
 *.so
 
 # Node
 node_modules/
+frontend/node_modules/
 dist/
 build/
 .npm/
