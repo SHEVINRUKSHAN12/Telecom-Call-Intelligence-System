@@ -4,7 +4,7 @@ import logging
 import re
 from typing import Dict, List, Optional, Tuple
 
-from services.audio_utils import split_wav_into_chunks
+from backend.services.audio_utils import split_wav_into_chunks
 
 logger = logging.getLogger(__name__)
 

@@ -7,14 +7,14 @@ import asyncio
 import logging
 import os
 
-from models.schemas import CallAnalysisResponse, CallListResponse, AnalyticsResponse
-from services.storage import upload_audio_to_gcs, generate_signed_audio_url
-from services.speech_to_text import transcribe_with_hybrid_fallback
-from services.classification import predict_intent
-from services.sentiment import analyze_sentiment
-from services.audio_utils import convert_to_wav, get_audio_duration_seconds
-from services.mongodb import get_collection
-from services.translation import detect_language
+from backend.models.schemas import CallAnalysisResponse, CallListResponse, AnalyticsResponse
+from backend.services.storage import upload_audio_to_gcs, generate_signed_audio_url
+from backend.services.speech_to_text import transcribe_with_hybrid_fallback
+from backend.services.classification import predict_intent
+from backend.services.sentiment import analyze_sentiment
+from backend.services.audio_utils import convert_to_wav, get_audio_duration_seconds
+from backend.services.mongodb import get_collection
+from backend.services.translation import detect_language
 
 logger = logging.getLogger(__name__)
 
