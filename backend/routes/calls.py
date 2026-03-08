@@ -172,14 +172,31 @@ async def analyze_call(
         )
 
         primary_language = (os.getenv("PRIMARY_LANGUAGE_CODE", "si-LK") or "si-LK").strip()
+        strict_sinhala_mode = os.getenv("STT_STRICT_SINHALA_MODE", "true").lower() in {"1", "true", "yes"}
         alt_codes_raw = os.getenv("ALT_LANGUAGE_CODES", "en-US")
-        alt_codes = [code.strip() for code in alt_codes_raw.split(",") if code.strip()]
-        if primary_language != "si-LK" and "si-LK" not in alt_codes:
-            alt_codes.append("si-LK")
-        if primary_language != "en-US" and "en-US" not in alt_codes:
-            alt_codes.append("en-US")
+        configured_alt_codes = [code.strip() for code in alt_codes_raw.split(",") if code.strip()]
 
         enable_diarization = os.getenv("ENABLE_DIARIZATION", "true").lower() in {"1", "true", "yes"}
+        diarization_speaker_count = int(os.getenv("DIARIZATION_SPEAKER_COUNT", "2"))
+
+        if strict_sinhala_mode and primary_language == "si-LK":
+            alt_codes = []
+            enable_diarization = False
+            diarization_speaker_count = 1
+            logger.info(
+                "Strict Sinhala STT mode enabled: lang=%s, alt_langs=%s, diarization=%s, speakers=%d",
+                primary_language,
+                alt_codes,
+                enable_diarization,
+                diarization_speaker_count,
+            )
+        else:
+            alt_codes = list(configured_alt_codes)
+            if primary_language != "si-LK" and "si-LK" not in alt_codes:
+                alt_codes.append("si-LK")
+            if primary_language != "en-US" and "en-US" not in alt_codes:
+                alt_codes.append("en-US")
+
         use_hybrid_fallback = os.getenv("STT_ENABLE_HYBRID_FALLBACK", "true").lower() in {"1", "true", "yes"}
 
         stt_package = await asyncio.to_thread(
@@ -188,7 +205,7 @@ async def analyze_call(
             gcs_uri=storage_result["gcs_uri"],
             language_code=primary_language,
             alternative_language_codes=alt_codes,
-            diarization_speaker_count=int(os.getenv("DIARIZATION_SPEAKER_COUNT", "2")),
+            diarization_speaker_count=diarization_speaker_count,
             sample_rate_hertz=sample_rate,
             chunk_target_seconds=int(os.getenv("STT_CHUNK_TARGET_SECONDS", "22")),
             chunk_max_seconds=int(os.getenv("STT_CHUNK_MAX_SECONDS", "25")),

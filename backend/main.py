@@ -9,7 +9,7 @@ from pathlib import Path
 # Load environment variables
 BASE_DIR = Path(__file__).resolve().parent
 REPO_ROOT = BASE_DIR.parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR / ".env", override=True)
 
 # Ensure package-qualified imports work whether the app is launched
 # from the repo root or from the backend folder.

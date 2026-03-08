@@ -1,6 +1,8 @@
-﻿from google.cloud import speech
+from google.api_core.client_options import ClientOptions
+from google.cloud import speech, speech_v2
 from google.auth.exceptions import DefaultCredentialsError
 import logging
+import os
 import re
 from typing import Dict, List, Optional, Tuple
 
@@ -14,6 +16,97 @@ def _credentials_error_message() -> str:
         "Google Cloud Speech credentials are invalid or missing. "
         "Set GOOGLE_APPLICATION_CREDENTIALS to a valid service account JSON path."
     )
+
+
+def _extract_usable_confidence(value) -> Optional[float]:
+    """
+    Google STT may omit confidence or surface it as 0.0 for some
+    Sinhala/diarized responses. Treat non-positive values as unavailable
+    rather than as a hard zero-confidence signal.
+    """
+    try:
+        confidence = float(value)
+    except (TypeError, ValueError):
+        return None
+
+    return confidence if confidence > 0.0 else None
+
+
+def _float_or_default(value, default: float) -> float:
+    if value is None:
+        return float(default)
+
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float(default)
+
+
+def _int_or_default(value, default: int) -> int:
+    if value is None:
+        return int(default)
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return int(default)
+
+
+def _format_confidence_for_log(confidence: Optional[float]) -> str:
+    if confidence is None:
+        return "n/a"
+    return f"{float(confidence):.2f}"
+
+
+def _duration_to_seconds(value) -> float:
+    if value is None:
+        return 0.0
+    if hasattr(value, "total_seconds"):
+        try:
+            return float(value.total_seconds())
+        except Exception:
+            return 0.0
+
+    seconds = getattr(value, "seconds", None)
+    nanos = getattr(value, "nanos", None)
+    if seconds is None and nanos is None:
+        return 0.0
+
+    return float(seconds or 0.0) + (float(nanos or 0.0) / 1_000_000_000.0)
+
+
+def _build_transcription_meta(
+    result: Dict,
+    metrics: Dict,
+    quality_passed: bool,
+    pipeline_used: str,
+    fallback_used: bool,
+    fallback_attempted: bool,
+) -> Dict:
+    return {
+        "pipeline_used": pipeline_used,
+        "chunk_count": _int_or_default(result.get("chunk_count"), 1),
+        "successful_chunk_count": _int_or_default(result.get("successful_chunk_count"), 1),
+        "avg_confidence": _float_or_default(metrics.get("avg_confidence"), 0.0),
+        "empty_chunk_ratio": _float_or_default(metrics.get("empty_chunk_ratio"), 1.0),
+        "transcript_char_count": _int_or_default(metrics.get("transcript_char_count"), 0),
+        "detected_speaker_count": _int_or_default(metrics.get("detected_speaker_count"), 0),
+        "quality_passed": bool(quality_passed),
+        "fallback_used": bool(fallback_used),
+        "fallback_attempted": bool(fallback_attempted),
+    }
+
+
+def _should_use_v2_primary(
+    language_code: str,
+    alternative_language_codes: Optional[List[str]],
+    enable_diarization: bool,
+) -> bool:
+    if os.getenv("STT_V2_ENABLED", "false").lower() not in {"1", "true", "yes"}:
+        return False
+
+    alt_codes = [code.strip() for code in (alternative_language_codes or []) if code and code.strip()]
+    return language_code == "si-LK" and not alt_codes and not enable_diarization
 
 
 def _build_speaker_segments(words: List) -> List[Dict]:
@@ -90,7 +183,7 @@ def _parse_stt_response(response, language_code: str, enable_diarization: bool) 
         return {
             "full_transcript": "",
             "detected_language": "unknown",
-            "confidence": 0.0,
+            "confidence": None,
             "speaker_segments": [],
             "audio_duration_seconds": 0.0,
         }
@@ -108,7 +201,7 @@ def _parse_stt_response(response, language_code: str, enable_diarization: bool) 
         if not full_transcript and words:
             # Some diarization responses return words but empty transcript field.
             full_transcript = _build_transcript_from_words(words)
-        avg_confidence = float(getattr(alternative, "confidence", 0.0) or 0.0)
+        avg_confidence = _extract_usable_confidence(getattr(alternative, "confidence", None) if alternative else None)
         segments = _build_speaker_segments(words)
     else:
         transcript_parts: List[str] = []
@@ -120,12 +213,13 @@ def _parse_stt_response(response, language_code: str, enable_diarization: bool) 
             alt = result.alternatives[0]
             if alt.transcript:
                 transcript_parts.append(alt.transcript.strip())
-            if hasattr(alt, "confidence"):
-                confidence_sum += float(alt.confidence or 0.0)
+            alt_confidence = _extract_usable_confidence(getattr(alt, "confidence", None))
+            if alt_confidence is not None:
+                confidence_sum += alt_confidence
                 confidence_count += 1
 
         full_transcript = " ".join(part for part in transcript_parts if part).strip()
-        avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else 0.0
+        avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else None
         segments = [
             {
                 "speaker_tag": 1,
@@ -145,6 +239,64 @@ def _parse_stt_response(response, language_code: str, enable_diarization: bool) 
 
     return {
         "full_transcript": full_transcript.strip(),
+        "detected_language": detected_language,
+        "confidence": avg_confidence,
+        "speaker_segments": segments,
+        "audio_duration_seconds": audio_duration_seconds,
+    }
+
+
+def _parse_v2_stt_response(response, language_code: str) -> Dict:
+    if not response.results:
+        return {
+            "full_transcript": "",
+            "detected_language": "unknown",
+            "confidence": None,
+            "speaker_segments": [],
+            "audio_duration_seconds": 0.0,
+        }
+
+    detected_language = language_code
+    transcript_parts: List[str] = []
+    confidence_sum = 0.0
+    confidence_count = 0
+    audio_duration_seconds = 0.0
+
+    for result in response.results:
+        if getattr(result, "language_code", None):
+            detected_language = result.language_code
+
+        audio_duration_seconds = max(
+            audio_duration_seconds,
+            _duration_to_seconds(getattr(result, "result_end_offset", None)),
+        )
+
+        if not result.alternatives:
+            continue
+
+        alt = result.alternatives[0]
+        if alt.transcript:
+            transcript_parts.append(alt.transcript.strip())
+
+        alt_confidence = _extract_usable_confidence(getattr(alt, "confidence", None))
+        if alt_confidence is not None:
+            confidence_sum += alt_confidence
+            confidence_count += 1
+
+    full_transcript = " ".join(part for part in transcript_parts if part).strip()
+    avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else None
+    segments = [
+        {
+            "speaker_tag": 1,
+            "speaker_label": "Speaker 1",
+            "text": full_transcript,
+            "start_time": 0.0,
+            "end_time": audio_duration_seconds,
+        }
+    ] if full_transcript else []
+
+    return {
+        "full_transcript": full_transcript,
         "detected_language": detected_language,
         "confidence": avg_confidence,
         "speaker_segments": segments,
@@ -274,7 +426,11 @@ def _merge_segments_in_order(existing: List[Dict], incoming: List[Dict]) -> List
 
 def _collect_quality_metrics(result: Dict) -> Dict:
     transcript = (result.get("full_transcript") or "").strip()
-    empty_chunk_ratio = float(result.get("empty_chunk_ratio", 1.0 if not transcript else 0.0) or 0.0)
+    raw_empty_chunk_ratio = result.get("empty_chunk_ratio")
+    if raw_empty_chunk_ratio is None:
+        empty_chunk_ratio = 1.0 if not transcript else 0.0
+    else:
+        empty_chunk_ratio = _float_or_default(raw_empty_chunk_ratio, 0.0)
     if empty_chunk_ratio < 0.0:
         empty_chunk_ratio = 0.0
     if empty_chunk_ratio > 1.0:
@@ -286,13 +442,14 @@ def _collect_quality_metrics(result: Dict) -> Dict:
         for seg in speaker_segments
         if (seg.get("text") or "").strip()
     }
+    raw_confidence = result.get("confidence")
 
     return {
-        "avg_confidence": float(result.get("confidence", 0.0) or 0.0),
+        "avg_confidence": float(raw_confidence) if raw_confidence is not None else 0.0,
         "empty_chunk_ratio": empty_chunk_ratio,
         "transcript_char_count": len(transcript),
         "detected_speaker_count": len(speaker_tags),
-        "chunk_count": int(result.get("chunk_count", 1) or 1),
+        "chunk_count": _int_or_default(result.get("chunk_count"), 1),
     }
 
 
@@ -301,20 +458,50 @@ def _passes_quality_gate(
     min_confidence: float,
     max_empty_chunk_ratio: float,
     min_transcript_chars: int,
+    confidence_available: bool = True,
 ) -> bool:
+    confidence_passed = True
+    if confidence_available:
+        confidence_passed = _float_or_default(metrics.get("avg_confidence"), 0.0) >= float(min_confidence)
+
     return (
-        float(metrics.get("avg_confidence", 0.0) or 0.0) >= float(min_confidence)
-        and float(metrics.get("empty_chunk_ratio", 1.0) or 1.0) <= float(max_empty_chunk_ratio)
-        and int(metrics.get("transcript_char_count", 0) or 0) >= int(min_transcript_chars)
+        confidence_passed
+        and _float_or_default(metrics.get("empty_chunk_ratio"), 1.0) <= float(max_empty_chunk_ratio)
+        and _int_or_default(metrics.get("transcript_char_count"), 0) >= int(min_transcript_chars)
     )
 
 
 def _quality_rank(metrics: Dict) -> Tuple[float, int, float]:
     return (
-        float(metrics.get("avg_confidence", 0.0) or 0.0),
-        int(metrics.get("transcript_char_count", 0) or 0),
-        1.0 - float(metrics.get("empty_chunk_ratio", 1.0) or 1.0),
+        _float_or_default(metrics.get("avg_confidence"), 0.0),
+        _int_or_default(metrics.get("transcript_char_count"), 0),
+        1.0 - _float_or_default(metrics.get("empty_chunk_ratio"), 1.0),
     )
+
+
+def _build_v2_client(region: str):
+    endpoint = f"{region}-speech.googleapis.com"
+    try:
+        return speech_v2.SpeechClient(client_options=ClientOptions(api_endpoint=endpoint))
+    except (DefaultCredentialsError, FileNotFoundError) as exc:
+        raise RuntimeError(_credentials_error_message()) from exc
+
+
+def _build_v2_recognition_config(language_code: str, model: str):
+    return speech_v2.RecognitionConfig(
+        auto_decoding_config=speech_v2.AutoDetectDecodingConfig(),
+        language_codes=[language_code],
+        model=model,
+        features=speech_v2.RecognitionFeatures(enable_automatic_punctuation=True),
+    )
+
+
+def _build_v2_recognizer_name(project_id: str, region: str) -> str:
+    project = (project_id or "").strip()
+    location = (region or "").strip() or "asia-southeast1"
+    if not project:
+        raise RuntimeError("GOOGLE_CLOUD_PROJECT must be set when STT_V2_ENABLED=true")
+    return f"projects/{project}/locations/{location}/recognizers/_"
 
 
 def transcribe_gcs_with_diarization(
@@ -364,9 +551,9 @@ def transcribe_gcs_with_diarization(
         result = _parse_stt_response(response, language_code, enable_diarization)
 
         logger.info(
-            "STT success: transcript_len=%d, confidence=%.2f, segments=%d, duration=%.1fs",
+            "STT success: transcript_len=%d, confidence=%s, segments=%d, duration=%.1fs",
             len(result["full_transcript"]),
-            result["confidence"],
+            _format_confidence_for_log(result.get("confidence")),
             len(result["speaker_segments"]),
             result["audio_duration_seconds"],
         )
@@ -411,7 +598,7 @@ def transcribe_wav_with_chunking(
         return {
             "full_transcript": "",
             "detected_language": "unknown",
-            "confidence": 0.0,
+            "confidence": None,
             "speaker_segments": [],
             "audio_duration_seconds": 0.0,
             "chunk_count": 0,
@@ -469,7 +656,7 @@ def transcribe_wav_with_chunking(
         if chunk_result.get("detected_language") and chunk_result["detected_language"] != "unknown":
             detected_language = chunk_result["detected_language"]
 
-        if chunk_result.get("confidence", 0.0) > 0:
+        if chunk_result.get("confidence") is not None:
             confidence_sum += float(chunk_result["confidence"])
             confidence_count += 1
 
@@ -488,7 +675,7 @@ def transcribe_wav_with_chunking(
     else:
         audio_duration_seconds = float(chunks[-1]["end_time"])
 
-    avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else 0.0
+    avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else None
 
     logger.info(
         "Chunked STT success: chunks=%d/%d, transcript_len=%d, segments=%d, duration=%.1fs",
@@ -496,6 +683,140 @@ def transcribe_wav_with_chunking(
         len(chunks),
         len(merged_transcript),
         len(merged_segments),
+        audio_duration_seconds,
+    )
+
+    return {
+        "full_transcript": merged_transcript,
+        "detected_language": detected_language,
+        "confidence": avg_confidence,
+        "speaker_segments": merged_segments,
+        "audio_duration_seconds": audio_duration_seconds,
+        "chunk_count": len(chunks),
+        "successful_chunk_count": successful_chunks,
+        "empty_chunk_ratio": (empty_chunk_count / len(chunks)) if chunks else 1.0,
+    }
+
+
+def transcribe_wav_with_chunking_v2(
+    wav_bytes: bytes,
+    language_code: str = "si-LK",
+    sample_rate_hertz: int = 16000,
+    chunk_target_seconds: int = 22,
+    chunk_max_seconds: int = 25,
+    chunk_min_seconds: int = 20,
+    chunk_min_silence_ms: int = 700,
+    chunk_overlap_seconds: float = 1.0,
+    region: str = "asia-southeast1",
+    model: str = "chirp_2",
+) -> Dict:
+    client = _build_v2_client(region)
+    project_id = os.getenv("GOOGLE_CLOUD_PROJECT", "")
+    recognizer = (
+        f"projects/{(project_id or '').strip()}/locations/{((region or '').strip() or 'asia-southeast1')}/recognizers/_"
+    )
+    logger.info(
+        "Chunked V2 recognizer config: project_id=%s, recognizer=%s, region=%s, model=%s",
+        project_id,
+        recognizer,
+        region,
+        model,
+    )
+    recognizer = _build_v2_recognizer_name(project_id, region)
+
+    chunks = split_wav_into_chunks(
+        wav_bytes=wav_bytes,
+        target_chunk_seconds=chunk_target_seconds,
+        max_chunk_seconds=chunk_max_seconds,
+        min_chunk_seconds=chunk_min_seconds,
+        min_silence_len_ms=chunk_min_silence_ms,
+        overlap_seconds=chunk_overlap_seconds,
+    )
+    if not chunks:
+        return {
+            "full_transcript": "",
+            "detected_language": "unknown",
+            "confidence": None,
+            "speaker_segments": [],
+            "audio_duration_seconds": 0.0,
+            "chunk_count": 0,
+            "successful_chunk_count": 0,
+            "empty_chunk_ratio": 1.0,
+        }
+
+    config = _build_v2_recognition_config(language_code=language_code, model=model)
+    merged_transcript = ""
+    merged_segments: List[Dict] = []
+    detected_language = language_code
+    confidence_sum = 0.0
+    confidence_count = 0
+    successful_chunks = 0
+    empty_chunk_count = 0
+
+    for idx, chunk in enumerate(chunks, start=1):
+        start_time = float(chunk["start_time"])
+        duration = float(chunk["duration_seconds"])
+        logger.info(
+            "Transcribing V2 chunk %d/%d (start=%.1fs, duration=%.1fs, region=%s, model=%s)",
+            idx,
+            len(chunks),
+            start_time,
+            duration,
+            region,
+            model,
+        )
+
+        try:
+            response = client.recognize(
+                request=speech_v2.RecognizeRequest(
+                    recognizer=recognizer,
+                    config=config,
+                    content=chunk["wav_bytes"],
+                )
+            )
+            chunk_result = _parse_v2_stt_response(response, language_code)
+        except Exception as exc:
+            logger.error("V2 chunk %d transcription failed: %s", idx, exc)
+            empty_chunk_count += 1
+            continue
+
+        successful_chunks += 1
+        chunk_transcript = (chunk_result["full_transcript"] or "").strip()
+        if not chunk_transcript:
+            empty_chunk_count += 1
+        else:
+            cleaned_transcript = _remove_text_overlap(merged_transcript, chunk_transcript)
+            if cleaned_transcript:
+                merged_transcript = f"{merged_transcript} {cleaned_transcript}".strip()
+
+        if chunk_result.get("detected_language") and chunk_result["detected_language"] != "unknown":
+            detected_language = chunk_result["detected_language"]
+
+        if chunk_result.get("confidence") is not None:
+            confidence_sum += float(chunk_result["confidence"])
+            confidence_count += 1
+
+        shifted_segments = _shift_segments(chunk_result["speaker_segments"], start_time)
+        merged_segments = _merge_segments_in_order(merged_segments, shifted_segments)
+
+    if successful_chunks == 0:
+        raise RuntimeError("Speech-to-Text V2 failed for all audio chunks.")
+
+    audio_duration_seconds = 0.0
+    if merged_segments:
+        merged_segments = sorted(merged_segments, key=lambda s: float(s.get("start_time", 0.0) or 0.0))
+        audio_duration_seconds = max(float(seg.get("end_time", 0.0) or 0.0) for seg in merged_segments)
+    else:
+        audio_duration_seconds = float(chunks[-1]["end_time"])
+
+    avg_confidence = confidence_sum / confidence_count if confidence_count > 0 else None
+
+    logger.info(
+        "Chunked V2 STT success: chunks=%d/%d, transcript_len=%d, confidence=%s, duration=%.1fs",
+        successful_chunks,
+        len(chunks),
+        len(merged_transcript),
+        _format_confidence_for_log(avg_confidence),
         audio_duration_seconds,
     )
 
@@ -529,6 +850,57 @@ def transcribe_with_hybrid_fallback(
     enable_diarization: bool = True,
     use_hybrid_fallback: bool = True,
 ) -> Dict:
+    if _should_use_v2_primary(language_code, alternative_language_codes, enable_diarization):
+        region = (os.getenv("STT_V2_REGION", "asia-southeast1") or "asia-southeast1").strip()
+        model = (os.getenv("STT_V2_MODEL", "chirp_2") or "chirp_2").strip()
+        try:
+            v2_result = transcribe_wav_with_chunking_v2(
+                wav_bytes=wav_bytes,
+                language_code=language_code,
+                sample_rate_hertz=sample_rate_hertz,
+                chunk_target_seconds=chunk_target_seconds,
+                chunk_max_seconds=chunk_max_seconds,
+                chunk_min_seconds=chunk_min_seconds,
+                chunk_min_silence_ms=chunk_min_silence_ms,
+                chunk_overlap_seconds=chunk_overlap_seconds,
+                region=region,
+                model=model,
+            )
+            v2_metrics = _collect_quality_metrics(v2_result)
+            v2_pass = _passes_quality_gate(
+                v2_metrics,
+                min_confidence=min_confidence,
+                max_empty_chunk_ratio=max_empty_chunk_ratio,
+                min_transcript_chars=min_transcript_chars,
+                confidence_available=v2_result.get("confidence") is not None,
+            )
+
+            if v2_pass and (v2_result.get("full_transcript") or "").strip():
+                return {
+                    "result": v2_result,
+                    "quality": v2_metrics,
+                    "quality_passed": True,
+                    "transcription_meta": _build_transcription_meta(
+                        result=v2_result,
+                        metrics=v2_metrics,
+                        quality_passed=True,
+                        pipeline_used="chunked_primary_v2",
+                        fallback_used=False,
+                        fallback_attempted=False,
+                    ),
+                    "chunked_quality": v2_metrics,
+                    "fallback_quality": None,
+                }
+
+            logger.warning(
+                "V2 primary STT did not pass quality gate; falling back to v1. transcript_len=%d, confidence=%s, empty_chunk_ratio=%.2f",
+                len((v2_result.get("full_transcript") or "").strip()),
+                _format_confidence_for_log(v2_result.get("confidence")),
+                _float_or_default(v2_metrics.get("empty_chunk_ratio"), 1.0),
+            )
+        except Exception as exc:
+            logger.warning("V2 primary STT failed; falling back to v1: %s", exc)
+
     chunked_result = transcribe_wav_with_chunking(
         wav_bytes=wav_bytes,
         language_code=language_code,
@@ -549,6 +921,7 @@ def transcribe_with_hybrid_fallback(
         min_confidence=min_confidence,
         max_empty_chunk_ratio=max_empty_chunk_ratio,
         min_transcript_chars=min_transcript_chars,
+        confidence_available=chunked_result.get("confidence") is not None,
     )
 
     selected_result = chunked_result
@@ -580,6 +953,7 @@ def transcribe_with_hybrid_fallback(
                 min_confidence=min_confidence,
                 max_empty_chunk_ratio=max_empty_chunk_ratio,
                 min_transcript_chars=min_transcript_chars,
+                confidence_available=fallback_result.get("confidence") is not None,
             )
 
             if fallback_pass and not chunked_pass:
@@ -600,20 +974,17 @@ def transcribe_with_hybrid_fallback(
         min_confidence=min_confidence,
         max_empty_chunk_ratio=max_empty_chunk_ratio,
         min_transcript_chars=min_transcript_chars,
+        confidence_available=selected_result.get("confidence") is not None,
     )
 
-    transcription_meta = {
-        "pipeline_used": pipeline_used,
-        "chunk_count": int(selected_result.get("chunk_count", 1) or 1),
-        "successful_chunk_count": int(selected_result.get("successful_chunk_count", 1) or 1),
-        "avg_confidence": float(selected_metrics.get("avg_confidence", 0.0) or 0.0),
-        "empty_chunk_ratio": float(selected_metrics.get("empty_chunk_ratio", 1.0) or 1.0),
-        "transcript_char_count": int(selected_metrics.get("transcript_char_count", 0) or 0),
-        "detected_speaker_count": int(selected_metrics.get("detected_speaker_count", 0) or 0),
-        "quality_passed": bool(quality_passed),
-        "fallback_used": bool(fallback_used),
-        "fallback_attempted": bool(fallback_attempted),
-    }
+    transcription_meta = _build_transcription_meta(
+        result=selected_result,
+        metrics=selected_metrics,
+        quality_passed=quality_passed,
+        pipeline_used=pipeline_used,
+        fallback_used=fallback_used,
+        fallback_attempted=fallback_attempted,
+    )
 
     return {
         "result": selected_result,
