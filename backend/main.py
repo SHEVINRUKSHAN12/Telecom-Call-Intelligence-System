@@ -25,7 +25,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Import routes
 from backend.routes.calls import router as calls_router
-from backend.services.mongodb import init_indexes
+from backend.services.mongodb import init_db
 
 app = FastAPI(
     title="Telecom Call Analysis API",
@@ -48,7 +48,7 @@ app.include_router(calls_router, prefix="/api", tags=["Calls"])
 
 @app.on_event("startup")
 async def startup_event():
-    await init_indexes()
+    await init_db()
 
 @app.get("/")
 async def root():

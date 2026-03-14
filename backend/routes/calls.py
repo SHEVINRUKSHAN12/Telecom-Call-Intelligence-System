@@ -2,7 +2,6 @@
 from fastapi.responses import JSONResponse
 from datetime import datetime
 from typing import Optional, List, Dict
-from bson import ObjectId
 import asyncio
 import logging
 import os
@@ -13,7 +12,13 @@ from backend.services.speech_to_text import transcribe_with_hybrid_fallback
 from backend.services.classification import predict_intent
 from backend.services.sentiment import analyze_sentiment
 from backend.services.audio_utils import convert_to_wav, get_audio_duration_seconds
-from backend.services.mongodb import get_collection
+from backend.services.mongodb import (
+    save_call,
+    get_call_by_id,
+    get_call_audio_uri,
+    list_calls as list_calls_db,
+    get_analytics as get_analytics_db,
+)
 from backend.services.translation import detect_language
 
 logger = logging.getLogger(__name__)
@@ -21,18 +26,19 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 SUPPORTED_FORMATS = [".wav", ".mp3", ".flac", ".ogg", ".m4a"]
-
-
-def _serialize_call(record: dict) -> dict:
-    record = dict(record)
-    record["id"] = str(record.pop("_id"))
-    return record
-
-
 def _parse_iso_date(value: str) -> datetime:
     if value.endswith("Z"):
         value = value[:-1] + "+00:00"
     return datetime.fromisoformat(value)
+
+
+def _parse_date_range(start: Optional[str], end: Optional[str]) -> tuple[Optional[datetime], Optional[datetime]]:
+    try:
+        parsed_start = _parse_iso_date(start) if start else None
+        parsed_end = _parse_iso_date(end) if end else None
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail="Invalid start/end date format") from exc
+    return parsed_start, parsed_end
 
 
 def _normalize_caller_labels(segments: List[Dict]) -> List[Dict]:
@@ -284,11 +290,8 @@ async def analyze_call(
             "transcription_meta": transcription_meta,
         }
 
-        collection = get_collection()
-        insert_result = await collection.insert_one(record)
-        record["_id"] = insert_result.inserted_id
-
-        return _serialize_call(record)
+        record["id"] = await save_call(record)
+        return record
     except HTTPException:
         raise
     except Exception as exc:
@@ -303,29 +306,16 @@ async def list_calls(
     end: Optional[str] = Query(None, description="ISO end date"),
     limit: int = Query(50, ge=1, le=200, description="Max number of calls to return"),
 ):
-    query: dict = {}
-    if q:
-        query["$text"] = {"$search": q}
-    if category and category.lower() != "all":
-        query["category.label"] = category
-
-    date_filter = {}
-    try:
-        if start:
-            date_filter["$gte"] = _parse_iso_date(start)
-        if end:
-            date_filter["$lte"] = _parse_iso_date(end)
-    except ValueError:
-        raise HTTPException(status_code=400, detail="Invalid start/end date format")
-    if date_filter:
-        query["created_at"] = date_filter
-
-    collection = get_collection()
-    total = await collection.count_documents(query)
-    cursor = collection.find(query).sort("created_at", -1).limit(limit)
+    parsed_start, parsed_end = _parse_date_range(start, end)
+    docs, total = await list_calls_db(
+        category=category,
+        q=q,
+        start=parsed_start,
+        end=parsed_end,
+        limit=limit,
+    )
     items = []
-    async for doc in cursor:
-        doc = _serialize_call(doc)
+    for doc in docs:
         preview = doc.get("full_transcript", "")[:160]
         items.append(
             {
@@ -345,30 +335,16 @@ async def list_calls(
 
 @router.get("/calls/{call_id}", response_model=CallAnalysisResponse)
 async def get_call(call_id: str):
-    collection = get_collection()
-    try:
-        doc = await collection.find_one({"_id": ObjectId(call_id)})
-    except Exception:
-        raise HTTPException(status_code=400, detail="Invalid call ID")
-
+    doc = await get_call_by_id(call_id)
     if not doc:
         raise HTTPException(status_code=404, detail="Call not found")
 
-    return _serialize_call(doc)
+    return doc
 
 
 @router.get("/calls/{call_id}/audio-url")
 async def get_call_audio_url(call_id: str):
-    collection = get_collection()
-    try:
-        doc = await collection.find_one({"_id": ObjectId(call_id)})
-    except Exception:
-        raise HTTPException(status_code=400, detail="Invalid call ID")
-
-    if not doc:
-        raise HTTPException(status_code=404, detail="Call not found")
-
-    gcs_uri = doc.get("file", {}).get("gcs_uri")
+    gcs_uri = await get_call_audio_uri(call_id)
     if not gcs_uri:
         raise HTTPException(status_code=404, detail="Audio URI not found for this call")
 
@@ -385,47 +361,5 @@ async def get_analytics(
     start: Optional[str] = Query(None, description="ISO start date"),
     end: Optional[str] = Query(None, description="ISO end date"),
 ):
-    match: dict = {}
-    if start or end:
-        date_filter = {}
-        try:
-            if start:
-                date_filter["$gte"] = _parse_iso_date(start)
-            if end:
-                date_filter["$lte"] = _parse_iso_date(end)
-        except ValueError:
-            raise HTTPException(status_code=400, detail="Invalid start/end date format")
-        match["created_at"] = date_filter
-
-    collection = get_collection()
-
-    category_pipeline = [
-        {"$match": match},
-        {"$group": {"_id": "$category.label", "count": {"$sum": 1}}},
-        {"$project": {"_id": 0, "category": "$_id", "count": 1}},
-        {"$sort": {"count": -1}},
-    ]
-
-    daily_pipeline = [
-        {"$match": match},
-        {
-            "$group": {
-                "_id": {
-                    "$dateToString": {"format": "%Y-%m-%d", "date": "$created_at"}
-                },
-                "count": {"$sum": 1},
-            }
-        },
-        {"$project": {"_id": 0, "date": "$_id", "count": 1}},
-        {"$sort": {"date": 1}},
-    ]
-
-    category_counts = await collection.aggregate(category_pipeline).to_list(length=None)
-    daily_counts = await collection.aggregate(daily_pipeline).to_list(length=None)
-    total_calls = await collection.count_documents(match)
-
-    return {
-        "total_calls": total_calls,
-        "category_counts": category_counts,
-        "daily_counts": daily_counts,
-    }
+    parsed_start, parsed_end = _parse_date_range(start, end)
+    return await get_analytics_db(start=parsed_start, end=parsed_end)

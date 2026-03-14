@@ -3,9 +3,15 @@ import { getCategoryColor, getCategoryLabel, formatDuration } from '../App';
 import { fetchCallAudioUrl } from '../services/api';
 import './CallDetails.css';
 
+const parseBackendUtcDate = (iso) => {
+  if (!iso) return null;
+  const normalizedIso = /(?:Z|[+-]\d{2}:\d{2})$/.test(iso) ? iso : `${iso}Z`;
+  return new Date(normalizedIso);
+};
+
 const formatDate = (iso) => {
   if (!iso) return '';
-  return new Date(iso).toLocaleString();
+  return parseBackendUtcDate(iso).toLocaleString('en-LK', { timeZone: 'Asia/Colombo' });
 };
 
 /* ── Confidence Ring (SVG donut) ── */
@@ -136,7 +142,7 @@ function CallDetails({ call }) {
 
   const buildTranscriptContent = () => {
     const fileName = call.file?.filename || 'Untitled Call';
-    const date = call.created_at ? new Date(call.created_at).toLocaleString() : 'Unknown';
+    const date = call.created_at ? formatDate(call.created_at) : 'Unknown';
     const language = call.detected_language || 'Unknown';
     const catLabel = call.category?.label || 'Unknown';
     const sentLabel = call.sentiment?.label || 'N/A';
@@ -177,7 +183,7 @@ function CallDetails({ call }) {
       .seg .label{font-weight:700;color:#3b82f6;font-size:0.85rem}.seg .time{color:#999;font-size:0.75rem}
       .transcript{white-space:pre-wrap;background:#fafafa;padding:16px;border-radius:8px;border:1px solid #eee}</style></head><body>`);
     win.document.write(`<h1>Call Transcript — #${callIdSuffix}</h1>`);
-    win.document.write(`<div class="meta">File: ${call.file?.filename || 'Unknown'}<br>Date: ${call.created_at ? new Date(call.created_at).toLocaleString() : 'Unknown'}<br>Language: ${call.detected_language || 'Unknown'}<br>Category: ${call.category?.label || 'Unknown'}<br>Sentiment: ${call.sentiment?.label || 'N/A'}</div>`);
+    win.document.write(`<div class="meta">File: ${call.file?.filename || 'Unknown'}<br>Date: ${call.created_at ? formatDate(call.created_at) : 'Unknown'}<br>Language: ${call.detected_language || 'Unknown'}<br>Category: ${call.category?.label || 'Unknown'}<br>Sentiment: ${call.sentiment?.label || 'N/A'}</div>`);
     const segs = call.speaker_segments || [];
     if (segs.length > 0) {
       win.document.write('<h2>Conversation Timeline</h2>');

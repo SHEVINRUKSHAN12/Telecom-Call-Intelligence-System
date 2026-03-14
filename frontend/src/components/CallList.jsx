@@ -1,9 +1,16 @@
 import { getCategoryColor, getCategoryLabel, formatDuration } from '../App';
 import './CallList.css';
 
+function parseBackendUtcDate(iso) {
+  if (!iso) return null;
+  const normalizedIso = /(?:Z|[+-]\d{2}:\d{2})$/.test(iso) ? iso : `${iso}Z`;
+  return new Date(normalizedIso);
+}
+
 function timeAgo(iso) {
   if (!iso) return '';
-  const diff = Date.now() - new Date(iso).getTime();
+  const date = parseBackendUtcDate(iso);
+  const diff = Date.now() - date.getTime();
   const mins = Math.floor(diff / 60000);
   if (mins < 1) return 'Just now';
   if (mins < 60) return `${mins}m ago`;
@@ -11,7 +18,7 @@ function timeAgo(iso) {
   if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
   if (days < 7) return `${days}d ago`;
-  return new Date(iso).toLocaleDateString();
+  return date.toLocaleDateString('en-LK', { timeZone: 'Asia/Colombo' });
 }
 
 function CallList({ calls, selectedId, onSelect, loading }) {
