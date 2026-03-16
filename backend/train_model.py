@@ -129,7 +129,7 @@ def main():
         per_device_eval_batch_size=BATCH_SIZE,
         learning_rate=LEARNING_RATE,
         weight_decay=0.01,
-        eval_strategy="epoch",
+        evaluation_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",

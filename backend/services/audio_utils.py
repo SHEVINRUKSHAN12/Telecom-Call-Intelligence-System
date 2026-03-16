@@ -61,12 +61,39 @@ def ffmpeg_available() -> bool:
     return bool(_FFMPEG_PATH and _FFPROBE_PATH)
 
 
+def _prepend_binary_dirs_to_path(*binary_paths: Optional[str]) -> None:
+    current_path = os.environ.get("PATH", "")
+    path_entries = current_path.split(os.pathsep) if current_path else []
+    known_entries = {
+        os.path.normcase(os.path.normpath(entry))
+        for entry in path_entries
+        if entry
+    }
+    new_entries = []
+
+    for binary_path in binary_paths:
+        if not binary_path:
+            continue
+        binary_dir = os.path.dirname(binary_path)
+        if not binary_dir:
+            continue
+        normalized_dir = os.path.normcase(os.path.normpath(binary_dir))
+        if normalized_dir in known_entries:
+            continue
+        known_entries.add(normalized_dir)
+        new_entries.append(binary_dir)
+
+    if new_entries:
+        os.environ["PATH"] = os.pathsep.join(new_entries + path_entries)
+
+
 def _find_ffmpeg():
     """Find ffmpeg/ffprobe executables and configure pydub to use them."""
     global _FFMPEG_PATH, _FFPROBE_PATH
 
     _FFMPEG_PATH = _resolve_binary("ffmpeg", "FFMPEG_BINARY")
     _FFPROBE_PATH = _resolve_binary("ffprobe", "FFPROBE_BINARY")
+    _prepend_binary_dirs_to_path(_FFMPEG_PATH, _FFPROBE_PATH)
 
     if _FFMPEG_PATH:
         AudioSegment.converter = _FFMPEG_PATH
@@ -81,6 +108,12 @@ def _find_ffmpeg():
         logger.warning("ffprobe not found.")
 
 _find_ffmpeg()
+logger.info(
+    "Audio utils FFmpeg initialization complete: ffmpeg_path=%s, ffprobe_path=%s, ffmpeg_available=%s",
+    _FFMPEG_PATH,
+    _FFPROBE_PATH,
+    ffmpeg_available(),
+)
 
 # Formats pydub can read (ffmpeg must be installed for mp3/ogg/m4a)
 SUPPORTED_INPUT_FORMATS = {".wav", ".mp3", ".flac", ".ogg", ".m4a", ".webm"}
@@ -291,6 +324,18 @@ def convert_to_wav(
     #  - Non-PCM WAV codecs (mu-law, a-law, ADPCM) common in telephony
     #  - Proper sample rate detection and resampling
     #  - Any container/codec combination
+    logger.info(
+        "Audio decode config: file_extension=%s, fmt=%s, ffmpeg_env_set=%s, ffprobe_env_set=%s, "
+        "resolved_ffmpeg=%s, resolved_ffprobe=%s, ffmpeg_exists=%s, ffprobe_exists=%s",
+        file_extension,
+        fmt,
+        bool(os.getenv("FFMPEG_BINARY")),
+        bool(os.getenv("FFPROBE_BINARY")),
+        _FFMPEG_PATH,
+        _FFPROBE_PATH,
+        bool(_FFMPEG_PATH and os.path.isfile(_FFMPEG_PATH)),
+        bool(_FFPROBE_PATH and os.path.isfile(_FFPROBE_PATH)),
+    )
     try:
         if fmt == "wav":
             # Let pydub auto-detect the actual codec inside the WAV container
