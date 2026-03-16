@@ -10,6 +10,7 @@ The script:
 3. Saves the model to backend/models/intent_model
 """
 
+import argparse
 import json
 import os
 from pathlib import Path
@@ -29,8 +30,8 @@ from torch.utils.data import Dataset
 # Configuration
 BASE_DIR = Path(__file__).parent
 DATA_PATH = BASE_DIR / "data" / "dataset.json"
-OUTPUT_DIR = BASE_DIR / "models" / "intent_model"
-MODEL_NAME = "xlm-roberta-base"
+DEFAULT_OUTPUT_DIR = BASE_DIR / "models" / "intent_model"
+DEFAULT_MODEL_NAME = "xlm-roberta-base"
 
 # Training hyperparameters
 EPOCHS = 5
@@ -79,7 +80,19 @@ def load_dataset(path):
     return texts, labels
 
 
+def parse_args():
+    """Parse CLI arguments for model selection and output path."""
+    parser = argparse.ArgumentParser(description="Train an intent classification model.")
+    parser.add_argument("--model_name", default=DEFAULT_MODEL_NAME)
+    parser.add_argument("--output_dir", default=str(DEFAULT_OUTPUT_DIR))
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+    model_name = args.model_name
+    output_dir = Path(args.output_dir)
+
     print("=" * 60)
     print("Intent Classification Model Training")
     print("=" * 60)
@@ -108,10 +121,10 @@ def main():
     print(f"\nTrain size: {len(train_texts)}, Validation size: {len(val_texts)}")
     
     # Load tokenizer and model
-    print(f"\nLoading model: {MODEL_NAME}")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+    print(f"\nLoading model: {model_name}")
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(
-        MODEL_NAME,
+        model_name,
         num_labels=num_labels,
         id2label={i: label for i, label in enumerate(label_encoder.classes_)},
         label2id={label: i for i, label in enumerate(label_encoder.classes_)},
@@ -123,7 +136,7 @@ def main():
     
     # Training arguments
     training_args = TrainingArguments(
-        output_dir=str(OUTPUT_DIR / "checkpoints"),
+        output_dir=str(output_dir / "checkpoints"),
         num_train_epochs=EPOCHS,
         per_device_train_batch_size=BATCH_SIZE,
         per_device_eval_batch_size=BATCH_SIZE,
@@ -133,7 +146,7 @@ def main():
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="eval_loss",
-        logging_dir=str(OUTPUT_DIR / "logs"),
+        logging_dir=str(output_dir / "logs"),
         logging_steps=50,
         fp16=torch.cuda.is_available(),
         report_to="none",
@@ -158,25 +171,25 @@ def main():
     trainer.train()
     
     # Save model
-    print(f"\nSaving model to: {OUTPUT_DIR}")
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    model.save_pretrained(OUTPUT_DIR)
-    tokenizer.save_pretrained(OUTPUT_DIR)
+    print(f"\nSaving model to: {output_dir}")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    model.save_pretrained(output_dir)
+    tokenizer.save_pretrained(output_dir)
     
     # Save label mapping
     label_mapping = {
         "id2label": {i: label for i, label in enumerate(label_encoder.classes_)},
         "label2id": {label: i for i, label in enumerate(label_encoder.classes_)},
     }
-    with open(OUTPUT_DIR / "label_mapping.json", "w") as f:
+    with open(output_dir / "label_mapping.json", "w") as f:
         json.dump(label_mapping, f, indent=2)
     
     print("\n" + "=" * 60)
     print("Training complete!")
     print("=" * 60)
-    print(f"\nModel saved to: {OUTPUT_DIR}")
+    print(f"\nModel saved to: {output_dir}")
     print("\nTo use this model, update your .env file:")
-    print(f"  INTENT_MODEL_PATH={OUTPUT_DIR}")
+    print(f"  INTENT_MODEL_PATH={output_dir}")
 
 
 if __name__ == "__main__":
