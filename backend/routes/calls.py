@@ -1,4 +1,4 @@
-﻿from fastapi import APIRouter, File, HTTPException, UploadFile, Query
+﻿from fastapi import APIRouter, File, Form, HTTPException, UploadFile, Query
 from fastapi.responses import JSONResponse
 from datetime import datetime
 from typing import Optional, List, Dict
@@ -9,8 +9,6 @@ import os
 from backend.models.schemas import CallAnalysisResponse, CallListResponse, AnalyticsResponse
 from backend.services.storage import upload_audio_to_gcs, generate_signed_audio_url
 from backend.services.speech_to_text import transcribe_with_hybrid_fallback
-from backend.services.classification import predict_intent
-from backend.services.sentiment import analyze_sentiment
 from backend.services.audio_utils import convert_to_wav, get_audio_duration_seconds
 from backend.services.mongodb import (
     save_call,
@@ -138,6 +136,7 @@ def _collapse_to_single_speaker(
 @router.post("/calls", response_model=CallAnalysisResponse)
 async def analyze_call(
     file: UploadFile = File(...),
+    language: Optional[str] = Form(None, description="Language hint: SI for Sinhala, EN for English"),
     agent_speaker_tag: Optional[int] = Query(None, description="Optional speaker tag for the agent"),
 ):
     del agent_speaker_tag
@@ -177,31 +176,38 @@ async def analyze_call(
             upload_audio_to_gcs, wav_bytes, wav_filename, "audio/wav"
         )
 
-        primary_language = (os.getenv("PRIMARY_LANGUAGE_CODE", "si-LK") or "si-LK").strip()
-        strict_sinhala_mode = os.getenv("STT_STRICT_SINHALA_MODE", "true").lower() in {"1", "true", "yes"}
-        alt_codes_raw = os.getenv("ALT_LANGUAGE_CODES", "en-US")
-        configured_alt_codes = [code.strip() for code in alt_codes_raw.split(",") if code.strip()]
+        # Use language hint from frontend (SI or EN), fallback to .env setting
+        lang_hint = (language or "SI").strip().upper()
 
-        enable_diarization = os.getenv("ENABLE_DIARIZATION", "true").lower() in {"1", "true", "yes"}
-        diarization_speaker_count = int(os.getenv("DIARIZATION_SPEAKER_COUNT", "2"))
-
-        if strict_sinhala_mode and primary_language == "si-LK":
+        if lang_hint == "EN":
+            # English calls: en-US primary, si-LK alternate, diarization from env
+            primary_language = "en-US"
+            alt_codes = ["si-LK"]
+            enable_diarization = os.getenv("ENABLE_DIARIZATION", "true").lower() in {"1", "true", "yes"}
+            diarization_speaker_count = int(os.getenv("DIARIZATION_SPEAKER_COUNT", "2"))
+            logger.info(
+                "English STT mode: lang=%s, alt_langs=%s, diarization=%s, speakers=%d",
+                primary_language, alt_codes, enable_diarization, diarization_speaker_count,
+            )
+        else:
+            # Sinhala calls: si-LK ONLY — no English alternate.
+            # Sri Lankan speakers use English words but pronounce them with Sinhala
+            # phonetics. With en-US as alternate the model outputs raw English text
+            # ("connection", "payment") which breaks Sinhala Unicode flow and produces
+            # garbage like "kala tharamata", "crack.zip".
+            # With si-LK only + speech adaptation the model writes English loanwords
+            # phonetically in Sinhala script ("කනෙක්ෂන්", "පේමන්ට්") — consistent
+            # and readable.
+            # Diarization is also disabled: combining diarization + single-language
+            # Sinhala gives the best transcript accuracy from the telephony model.
+            primary_language = (os.getenv("PRIMARY_LANGUAGE_CODE", "si-LK") or "si-LK").strip()
             alt_codes = []
             enable_diarization = False
             diarization_speaker_count = 1
             logger.info(
-                "Strict Sinhala STT mode enabled: lang=%s, alt_langs=%s, diarization=%s, speakers=%d",
-                primary_language,
-                alt_codes,
-                enable_diarization,
-                diarization_speaker_count,
+                "Sinhala STT mode (si-LK only, no diarization): lang=%s, alt_langs=%s, diarization=%s",
+                primary_language, alt_codes, enable_diarization,
             )
-        else:
-            alt_codes = list(configured_alt_codes)
-            if primary_language != "si-LK" and "si-LK" not in alt_codes:
-                alt_codes.append("si-LK")
-            if primary_language != "en-US" and "en-US" not in alt_codes:
-                alt_codes.append("en-US")
 
         use_hybrid_fallback = os.getenv("STT_ENABLE_HYBRID_FALLBACK", "true").lower() in {"1", "true", "yes"}
 
@@ -266,9 +272,6 @@ async def analyze_call(
             except Exception:
                 pass
 
-        intent = await asyncio.to_thread(predict_intent, full_transcript)
-        sentiment = await asyncio.to_thread(analyze_sentiment, full_transcript)
-
         if not duration_seconds:
             duration_seconds = await asyncio.to_thread(get_audio_duration_seconds, audio_bytes, file_ext)
 
@@ -285,8 +288,6 @@ async def analyze_call(
             "duration_seconds": duration_seconds,
             "full_transcript": full_transcript,
             "speaker_segments": segments,
-            "category": intent,
-            "sentiment": sentiment,
             "transcription_meta": transcription_meta,
         }
 
@@ -324,8 +325,6 @@ async def list_calls(
                 "file_name": doc.get("file", {}).get("filename", ""),
                 "detected_language": doc.get("detected_language"),
                 "duration_seconds": doc.get("duration_seconds"),
-                "category": doc.get("category"),
-                "sentiment": doc.get("sentiment"),
                 "preview": preview,
             }
         )

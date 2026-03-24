@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCategoryColor, getCategoryLabel, formatDuration } from '../App';
+import { formatDuration } from '../App';
 import { fetchCallAudioUrl } from '../services/api';
 import './CallDetails.css';
 
@@ -14,69 +14,63 @@ const formatDate = (iso) => {
   return parseBackendUtcDate(iso).toLocaleString('en-LK', { timeZone: 'Asia/Colombo' });
 };
 
-/* ── Confidence Ring (SVG donut) ── */
-function ConfidenceRing({ value = 0, size = 52, color }) {
-  const radius = (size - 6) / 2;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (value * circumference);
-  const strokeColor = color || 'var(--accent-2)';
+// ── WER helpers (pure JS, no backend needed) ──────────────────────────────
+function computeWER(reference, hypothesis) {
+  // Normalise: lowercase, strip punctuation
+  const normalise = (s) =>
+    s.toLowerCase().replace(/[^\u0D80-\u0DFFa-z0-9\s]/g, '').trim();
+  const refWords = normalise(reference).split(/\s+/).filter(Boolean);
+  const hypWords = normalise(hypothesis).split(/\s+/).filter(Boolean);
+  const R = refWords.length;
+  const H = hypWords.length;
+  if (R === 0) return null;
 
-  return (
-    <svg className="confidence-ring" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-      <circle cx={size / 2} cy={size / 2} r={radius} fill="none" stroke="rgba(100,130,160,0.12)" strokeWidth="4" />
-      <circle
-        cx={size / 2} cy={size / 2} r={radius} fill="none"
-        stroke={strokeColor} strokeWidth="4"
-        strokeDasharray={circumference} strokeDashoffset={offset}
-        strokeLinecap="round"
-        transform={`rotate(-90 ${size / 2} ${size / 2})`}
-        style={{ transition: 'stroke-dashoffset 0.8s ease' }}
-      />
-      <text
-        x={size / 2} y={size / 2}
-        textAnchor="middle" dominantBaseline="central"
-        fill="var(--text)" fontSize="12" fontWeight="700"
-        fontFamily="Space Grotesk, sans-serif"
-      >
-        {(value * 100).toFixed(0)}%
-      </text>
-    </svg>
+  // Levenshtein at word level
+  const dp = Array.from({ length: R + 1 }, (_, i) =>
+    Array.from({ length: H + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
   );
+  for (let i = 1; i <= R; i++) {
+    for (let j = 1; j <= H; j++) {
+      dp[i][j] =
+        refWords[i - 1] === hypWords[j - 1]
+          ? dp[i - 1][j - 1]
+          : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+    }
+  }
+  const wer = dp[R][H] / R;
+  return { wer, accuracy: Math.max(0, 1 - wer), refWords: R };
 }
 
-/* ── Sentiment helpers ── */
-const SENTIMENT_CONFIG = {
-  positive: { emoji: '😊', label: 'Positive', color: '#10b981', bg: 'rgba(16, 185, 129, 0.10)', border: 'rgba(16, 185, 129, 0.25)', glow: 'rgba(16, 185, 129, 0.15)' },
-  negative: { emoji: '😠', label: 'Negative', color: '#ef4444', bg: 'rgba(239, 68, 68, 0.10)', border: 'rgba(239, 68, 68, 0.25)', glow: 'rgba(239, 68, 68, 0.15)' },
-  neutral: { emoji: '😐', label: 'Neutral', color: '#f59e0b', bg: 'rgba(245, 158, 11, 0.10)', border: 'rgba(245, 158, 11, 0.25)', glow: 'rgba(245, 158, 11, 0.15)' },
-};
-
-function getSentimentConfig(label) {
-  if (!label) return null;
-  const key = label.toLowerCase().replace(/\s/g, '');
-  return SENTIMENT_CONFIG[key] || SENTIMENT_CONFIG.neutral;
+function getQualityFromConfidence(conf) {
+  if (conf === null || conf === undefined) return { label: 'Unknown', color: '#6b7280', bg: 'rgba(107,114,128,0.12)', wer: 'n/a' };
+  if (conf >= 0.85) return { label: 'Excellent', color: '#10b981', bg: 'rgba(16,185,129,0.12)', wer: '< 10%' };
+  if (conf >= 0.70) return { label: 'Good',      color: '#3b82f6', bg: 'rgba(59,130,246,0.12)', wer: '10–25%' };
+  if (conf >= 0.55) return { label: 'Fair',      color: '#f59e0b', bg: 'rgba(245,158,11,0.12)', wer: '25–40%' };
+  return                     { label: 'Poor',      color: '#ef4444', bg: 'rgba(239,68,68,0.12)',  wer: '> 40%' };
 }
 
-/* ── Intent Score Bar ── */
-function ScoreBar({ label, score, maxScore, color }) {
-  const pct = maxScore > 0 ? (score / maxScore) * 100 : 0;
-  return (
-    <div className="score-bar-row">
-      <span className="score-bar-label">{label}</span>
-      <div className="score-bar-track">
-        <div className="score-bar-fill" style={{ width: `${pct}%`, background: color }} />
-      </div>
-      <span className="score-bar-value">{(score * 100).toFixed(1)}%</span>
-    </div>
-  );
+function getQualityFromWER(wer) {
+  if (wer <= 0.10) return { label: 'Excellent', color: '#10b981', bg: 'rgba(16,185,129,0.12)' };
+  if (wer <= 0.25) return { label: 'Good',      color: '#3b82f6', bg: 'rgba(59,130,246,0.12)' };
+  if (wer <= 0.40) return { label: 'Fair',      color: '#f59e0b', bg: 'rgba(245,158,11,0.12)' };
+  return                   { label: 'Poor',      color: '#ef4444', bg: 'rgba(239,68,68,0.12)'  };
 }
 
+const WER_RANGES = [
+  { label: 'Excellent', range: '90–100%', wer: '0–10%',  color: '#10b981', note: 'Production ready' },
+  { label: 'Good',      range: '75–90%',  wer: '10–25%', color: '#3b82f6', note: 'Minor corrections needed' },
+  { label: 'Fair',      range: '60–75%',  wer: '25–40%', color: '#f59e0b', note: 'Needs editing' },
+  { label: 'Poor',      range: '< 60%',   wer: '> 40%',  color: '#ef4444', note: 'Major errors' },
+];
+// ─────────────────────────────────────────────────────────────────────────────
 
 function CallDetails({ call }) {
   const [copied, setCopied] = useState(false);
   const [audioUrl, setAudioUrl] = useState('');
   const [audioError, setAudioError] = useState('');
   const [showDownloadMenu, setShowDownloadMenu] = useState(false);
+  const [refTranscript, setRefTranscript] = useState('');
+  const [werResult, setWerResult] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -105,8 +99,8 @@ function CallDetails({ call }) {
     return (
       <div className="call-details empty">
         <div className="empty-icon">📞</div>
-        <h3>Select a call to view insights</h3>
-        <p>Upload a recording or pick a recent call to inspect the transcript and predictions.</p>
+        <h3>Select a call to view details</h3>
+        <p>Upload a recording or pick a recent call to inspect the transcript.</p>
       </div>
     );
   }
@@ -123,14 +117,15 @@ function CallDetails({ call }) {
   };
 
   const callIdSuffix = call.id ? call.id.slice(-6).toUpperCase() : '------';
-  const catLabel = call.category?.label;
-  const catColor = getCategoryColor(catLabel);
-  const catConfidence = call.category?.confidence || 0;
-  const intentScores = call.category?.scores || {};
-  const maxIntentScore = Math.max(...Object.values(intentScores), 0.01);
 
-  const sentimentData = call.sentiment;
-  const sentCfg = getSentimentConfig(sentimentData?.label);
+  const avgConf = call.transcription_meta?.avg_confidence ?? null;
+  const confQuality = getQualityFromConfidence(avgConf);
+
+  const handleCalculateWER = () => {
+    if (!refTranscript.trim() || !call.full_transcript) return;
+    const result = computeWER(refTranscript, call.full_transcript);
+    setWerResult(result);
+  };
 
   const handleCopy = () => {
     if (call.full_transcript) {
@@ -144,10 +139,8 @@ function CallDetails({ call }) {
     const fileName = call.file?.filename || 'Untitled Call';
     const date = call.created_at ? formatDate(call.created_at) : 'Unknown';
     const language = call.detected_language || 'Unknown';
-    const catLabel = call.category?.label || 'Unknown';
-    const sentLabel = call.sentiment?.label || 'N/A';
     let text = `Call Transcript\n${'='.repeat(50)}\n`;
-    text += `File: ${fileName}\nDate: ${date}\nLanguage: ${language}\nCategory: ${catLabel}\nSentiment: ${sentLabel}\n\n`;
+    text += `File: ${fileName}\nDate: ${date}\nLanguage: ${language}\n\n`;
     const segs = call.speaker_segments || [];
     if (segs.length > 0) {
       text += `Conversation Timeline\n${'-'.repeat(40)}\n`;
@@ -174,7 +167,6 @@ function CallDetails({ call }) {
   };
 
   const handleDownloadPdf = () => {
-    const content = buildTranscriptContent();
     const win = window.open('', '_blank');
     win.document.write(`<!DOCTYPE html><html><head><title>Transcript ${callIdSuffix}</title>
       <style>body{font-family:'Segoe UI',system-ui,sans-serif;padding:40px;color:#222;line-height:1.7;max-width:800px;margin:0 auto}
@@ -183,7 +175,7 @@ function CallDetails({ call }) {
       .seg .label{font-weight:700;color:#3b82f6;font-size:0.85rem}.seg .time{color:#999;font-size:0.75rem}
       .transcript{white-space:pre-wrap;background:#fafafa;padding:16px;border-radius:8px;border:1px solid #eee}</style></head><body>`);
     win.document.write(`<h1>Call Transcript — #${callIdSuffix}</h1>`);
-    win.document.write(`<div class="meta">File: ${call.file?.filename || 'Unknown'}<br>Date: ${call.created_at ? formatDate(call.created_at) : 'Unknown'}<br>Language: ${call.detected_language || 'Unknown'}<br>Category: ${call.category?.label || 'Unknown'}<br>Sentiment: ${call.sentiment?.label || 'N/A'}</div>`);
+    win.document.write(`<div class="meta">File: ${call.file?.filename || 'Unknown'}<br>Date: ${call.created_at ? formatDate(call.created_at) : 'Unknown'}<br>Language: ${call.detected_language || 'Unknown'}</div>`);
     const segs = call.speaker_segments || [];
     if (segs.length > 0) {
       win.document.write('<h2>Conversation Timeline</h2>');
@@ -198,18 +190,6 @@ function CallDetails({ call }) {
     win.document.close();
     setTimeout(() => { win.print(); }, 500);
     setShowDownloadMenu(false);
-  };
-
-  /* ── Category color mapping for score bars ── */
-  const catBarColors = {
-    Billing: 'var(--cat-billing)',
-    Complaint: 'var(--cat-complaint)',
-    Fiber: 'var(--cat-fiber)',
-    New_Connection: 'var(--cat-new-connection)',
-    'New Connection': 'var(--cat-new-connection)',
-    Other: 'var(--cat-other)',
-    PEO_TV: 'var(--cat-peo-tv)',
-    'Peo Tv': 'var(--cat-peo-tv)',
   };
 
   return (
@@ -241,103 +221,18 @@ function CallDetails({ call }) {
           <span>Storage</span>
           <strong>{call.file?.gcs_uri ? 'GCS' : 'Local'}</strong>
         </div>
-      </div>
-
-      {/* ── ML Results: Intent + Sentiment ── */}
-      <div className="ml-results-grid">
-
-        {/* ── Intent Classification Card ── */}
-        <div className="ml-card intent-card" style={{ '--card-accent': catColor }}>
-          <div className="ml-card-header">
-            <div className="ml-card-icon">🎯</div>
-            <div>
-              <h3 className="ml-card-title">Intent Classification</h3>
-              <p className="ml-card-subtitle">XLM-RoBERTa prediction</p>
-            </div>
-          </div>
-
-          <div className="ml-card-result">
-            <div className="intent-badge" style={{ '--badge-color': catColor }}>
-              {getCategoryLabel(catLabel) || 'Unknown'}
-            </div>
-            <ConfidenceRing value={catConfidence} size={64} color={catColor} />
-          </div>
-
-          {/* Score breakdown */}
-          {Object.keys(intentScores).length > 0 && (
-            <div className="ml-card-breakdown">
-              <p className="breakdown-title">Score Breakdown</p>
-              {Object.entries(intentScores)
-                .sort(([, a], [, b]) => b - a)
-                .map(([label, score]) => (
-                  <ScoreBar
-                    key={label}
-                    label={label.replace(/_/g, ' ')}
-                    score={score}
-                    maxScore={maxIntentScore}
-                    color={catBarColors[label] || 'var(--accent)'}
-                  />
-                ))}
-            </div>
-          )}
+        <div className="stat-card">
+          <span>Confidence</span>
+          <strong style={{ color: confQuality.color }}>
+            {avgConf !== null ? `${(avgConf * 100).toFixed(1)}%` : '—'}
+          </strong>
         </div>
-
-        {/* ── Sentiment Analysis Card ── */}
-        <div
-          className="ml-card sentiment-card"
-          style={{
-            '--card-accent': sentCfg?.color || 'var(--muted)',
-            '--sent-bg': sentCfg?.bg || 'rgba(100,130,160,0.06)',
-            '--sent-border': sentCfg?.border || 'var(--border)',
-            '--sent-glow': sentCfg?.glow || 'transparent',
-          }}
-        >
-          <div className="ml-card-header">
-            <div className="ml-card-icon">💬</div>
-            <div>
-              <h3 className="ml-card-title">Sentiment Analysis</h3>
-              <p className="ml-card-subtitle">XLM-RoBERTa sentiment</p>
-            </div>
-          </div>
-
-          {sentCfg ? (
-            <>
-              <div className="ml-card-result sentiment-result">
-                <div className="sentiment-emoji-wrap">
-                  <span className="sentiment-emoji">{sentCfg.emoji}</span>
-                </div>
-                <div className="sentiment-label-group">
-                  <span className="sentiment-badge" style={{ background: sentCfg.bg, borderColor: sentCfg.border, color: sentCfg.color }}>
-                    {sentCfg.label}
-                  </span>
-                  <span className="sentiment-score">
-                    {((sentimentData?.score || 0) * 100).toFixed(1)}% confidence
-                  </span>
-                </div>
-              </div>
-              <div className="sentiment-bar-wrap">
-                <div className="sentiment-bar-track">
-                  <div
-                    className="sentiment-bar-fill"
-                    style={{
-                      width: `${(sentimentData?.score || 0) * 100}%`,
-                      background: `linear-gradient(90deg, ${sentCfg.color}, ${sentCfg.color}88)`,
-                    }}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="ml-card-result sentiment-result">
-              <div className="sentiment-emoji-wrap">
-                <span className="sentiment-emoji faded">—</span>
-              </div>
-              <div className="sentiment-label-group">
-                <span className="sentiment-badge disabled">Not Analyzed</span>
-                <span className="sentiment-score">Enable sentiment in backend to see results</span>
-              </div>
-            </div>
-          )}
+        <div className="stat-card quality-card" style={{ '--quality-color': confQuality.color, '--quality-bg': confQuality.bg }}>
+          <span>STT Quality</span>
+          <strong className="quality-badge-inline" style={{ color: confQuality.color }}>
+            {confQuality.label}
+          </strong>
+          <span className="quality-wer-hint">WER ≈ {confQuality.wer}</span>
         </div>
       </div>
 
@@ -423,6 +318,73 @@ function CallDetails({ call }) {
           </div>
         </div>
         <p>{call.full_transcript || 'Transcript not available.'}</p>
+      </div>
+
+      {/* ── WER Accuracy Calculator ── */}
+      <div className="call-section wer-section">
+        <h3>Accuracy Calculator (WER)</h3>
+        <p className="wer-description">
+          Paste the correct human-verified transcript below to calculate Word Error Rate (WER) and real accuracy for this call.
+        </p>
+
+        {/* Reference table */}
+        <div className="wer-range-table">
+          <div className="wer-range-header">
+            <span>Quality</span>
+            <span>Accuracy</span>
+            <span>WER</span>
+            <span>Meaning</span>
+          </div>
+          {WER_RANGES.map((row) => (
+            <div key={row.label} className="wer-range-row">
+              <span className="wer-range-label" style={{ color: row.color }}>{row.label}</span>
+              <span>{row.range}</span>
+              <span>{row.wer}</span>
+              <span className="wer-range-note">{row.note}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Input area */}
+        <textarea
+          className="wer-textarea"
+          placeholder="Paste the correct Sinhala transcript here..."
+          value={refTranscript}
+          onChange={(e) => { setRefTranscript(e.target.value); setWerResult(null); }}
+          rows={5}
+        />
+        <button className="wer-calc-btn" onClick={handleCalculateWER} disabled={!refTranscript.trim()}>
+          Calculate Accuracy
+        </button>
+
+        {/* Results */}
+        {werResult && (() => {
+          const q = getQualityFromWER(werResult.wer);
+          return (
+            <div className="wer-results" style={{ '--wer-color': q.color, '--wer-bg': q.bg }}>
+              <div className="wer-result-row">
+                <div className="wer-result-block">
+                  <span>Accuracy</span>
+                  <strong style={{ color: q.color }}>{(werResult.accuracy * 100).toFixed(1)}%</strong>
+                </div>
+                <div className="wer-result-block">
+                  <span>Word Error Rate</span>
+                  <strong style={{ color: q.color }}>{(werResult.wer * 100).toFixed(1)}%</strong>
+                </div>
+                <div className="wer-result-block">
+                  <span>Reference Words</span>
+                  <strong>{werResult.refWords}</strong>
+                </div>
+                <div className="wer-result-block">
+                  <span>Quality</span>
+                  <strong className="wer-quality-pill" style={{ color: q.color, background: q.bg }}>
+                    {q.label}
+                  </strong>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );

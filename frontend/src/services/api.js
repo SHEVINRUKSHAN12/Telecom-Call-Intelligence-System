@@ -23,9 +23,10 @@ const buildQuery = (params = {}) => {
     return queryString ? `?${queryString}` : '';
 };
 
-export async function uploadCall(audioFile) {
+export async function uploadCall(audioFile, language = 'SI') {
     const formData = new FormData();
     formData.append('file', audioFile);
+    formData.append('language', language);
 
     const response = await requestJson(`${API_BASE_URL}/calls`, {
         method: 'POST',

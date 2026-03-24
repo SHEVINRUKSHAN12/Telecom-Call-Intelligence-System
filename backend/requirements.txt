@@ -7,9 +7,4 @@ google-cloud-storage==2.14.0
 python-dotenv==1.0.0
 pydub==0.25.1
 aiosqlite
-transformers==4.36.2
-torch>=2.10.0
-sentencepiece==0.1.99
 dnspython
-scikit-learn
-accelerate

@@ -150,6 +150,53 @@ def _build_transcript_from_words(words: List) -> str:
     return " ".join(tokens).strip()
 
 
+# ---------------------------------------------------------------------------
+# Telecom domain vocabulary for Speech Adaptation.
+# These phrases are boosted so the STT model strongly prefers them over
+# acoustically similar words.  Sri Lankan call-centre speech mixes Sinhala
+# and English heavily (code-switching), so both scripts are included.
+# ---------------------------------------------------------------------------
+_TELECOM_BOOST_PHRASES = [
+    # Operator names
+    "SLT Mobitel", "SLT", "Mobitel", "ශ්‍රී ලංකා ටෙලිකොම්",
+    # Agent names commonly used in Sri Lankan call centres
+    "රේනුකා", "Renuka", "රශ්මි", "නිශාන්", "දිලීප",
+    # Connectivity terms (English loanwords used inside Sinhala sentences)
+    "connection", "disconnected", "reconnect", "activate", "deactivate",
+    "fiber", "broadband", "internet", "ADSL",
+    "කනෙක්ෂන්", "ඇක්ටිව්", "ඩිස්කනෙක්ට්", "රිකනෙක්ට්",
+    # Billing / payment
+    "bill", "bill payment", "outstanding balance", "due date", "invoice",
+    "payment", "paid", "amount",
+    "බිල්", "පේමන්ට්", "ඔට්ස්ටෑන්ඩිං", "රුපියල්", "මුදල",
+    "ඩිස්කනෙක්ට් වෙලා", "ඇක්ටිව් වෙනවා",
+    # Transaction / reference
+    "transaction number", "transaction", "reference number", "reference",
+    "ට්‍රාන්ස්ක්ෂන් නම්බර්", "රෙෆරන්ස් නම්බර්", "ට්‍රාන්ස්ෆරන්ස්",
+    # Banks (Sri Lankan) — agent commonly asks which bank was used
+    "Nations Trust Bank", "NTB", "Sampath Bank", "People's Bank",
+    "Bank of Ceylon", "BOC", "Commercial Bank", "HNB", "DFCC",
+    "නේෂන් ට්‍රස්ට් බෑන්ක්", "සම්පත් බෑන්ක්", "HNB බෑන්ක්",
+    # Online / digital payments
+    "online payment", "online banking", "bank account", "bank transfer",
+    "ඔන්ලයින්", "බෑන්ක් ට්‍රාන්ස්ෆර්", "බෑන්ක් එකවුන්ට්",
+    # Notifications
+    "SMS alert", "SMS", "email",
+    "එස්එම්එස් ඇලට්", "ඊමේල්",
+    # Common Sinhala responses and phrases in calls
+    "ඔව් ඔව්", "ඔව්", "නැහැ", "හරි", "හරි හරි",
+    "ඇත්ත", "ඇත්තද", "පොඩ්ඩක් ඉන්න", "රැඳී ඉන්නවා",
+    # Customer service Sinhala phrases
+    "ආයුබෝවන්", "ස්තූතියි", "සුභ දවසක්",
+    "කරුණාකරලා", "ඇමතිමිය", "මැඩම්",
+    "කම්ප්ලේන්", "complaint", "complaint number",
+    "චෙක් කරලා", "අප්ඩේට් වෙලා", "ඩීටේල්ස්",
+    # Billing details heard in calls
+    "නොවැම්බර්", "දෙසැම්බර්", "ඩියු ඩේට්",
+    "ඔටෝමැටිකලි", "ඩිඩක්ට්",
+]
+
+
 def _build_recognition_config(
     language_code: str,
     alternative_language_codes: Optional[List[str]],
@@ -158,6 +205,21 @@ def _build_recognition_config(
     enable_diarization: bool,
     model: str = "default",
 ):
+    # Allow forcing a specific V1 model via STT_V1_MODEL env var.
+    # telephony: optimised for phone call audio (best for 8kHz originals, works at 16kHz too)
+    # default:   general purpose, works at any sample rate for si-LK
+    # latest_long does NOT support si-LK (confirmed: 400 error).
+    forced_model = (os.getenv("STT_V1_MODEL", "").strip().lower())
+    if forced_model in {"telephony", "default"}:
+        model = forced_model
+        logger.info("Using forced V1 model from STT_V1_MODEL env: %s", model)
+    elif model == "default":
+        if sample_rate_hertz <= 8000:
+            model = "telephony"
+            logger.info("Using telephony model for 8kHz si-LK audio")
+        else:
+            logger.info("Using default model for 16kHz si-LK audio (sample_rate=%d)", sample_rate_hertz)
+
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         sample_rate_hertz=sample_rate_hertz,
@@ -168,6 +230,16 @@ def _build_recognition_config(
         enable_word_time_offsets=enable_diarization,
         model=model,
         use_enhanced=True,
+        # Speech Adaptation: strongly boost telecom domain vocabulary.
+        # boost=15 (max 20) makes the model highly prefer these phrases when
+        # the audio is acoustically ambiguous — fixes code-switching errors
+        # like "kala tharamata", "crack.zip", "uganwanna" etc.
+        speech_contexts=[
+            speech.SpeechContext(
+                phrases=_TELECOM_BOOST_PHRASES,
+                boost=15.0,
+            )
+        ],
     )
     if enable_diarization:
         config.diarization_config = speech.SpeakerDiarizationConfig(
@@ -488,11 +560,25 @@ def _build_v2_client(region: str):
 
 
 def _build_v2_recognition_config(language_code: str, model: str):
+    # Build V2 speech adaptation with the same telecom phrase hints used in V1.
+    # V2 uses SpeechAdaptation with inline PhraseSet instead of speech_contexts.
+    v2_phrases = [
+        speech_v2.PhraseSet.Phrase(value=p, boost=12.0)
+        for p in _TELECOM_BOOST_PHRASES
+    ]
+    adaptation = speech_v2.SpeechAdaptation(
+        phrase_sets=[
+            speech_v2.SpeechAdaptation.AdaptationPhraseSet(
+                inline_phrase_set=speech_v2.PhraseSet(phrases=v2_phrases)
+            )
+        ]
+    )
     return speech_v2.RecognitionConfig(
         auto_decoding_config=speech_v2.AutoDetectDecodingConfig(),
         language_codes=[language_code],
         model=model,
         features=speech_v2.RecognitionFeatures(enable_automatic_punctuation=True),
+        adaptation=adaptation,
     )
 
 
@@ -637,6 +723,7 @@ def transcribe_wav_with_chunking(
             response = client.recognize(
                 config=config,
                 audio=speech.RecognitionAudio(content=chunk["wav_bytes"]),
+                timeout=120,
             )
             chunk_result = _parse_stt_response(response, language_code, enable_diarization=enable_diarization)
         except Exception as exc:
@@ -772,7 +859,8 @@ def transcribe_wav_with_chunking_v2(
                     recognizer=recognizer,
                     config=config,
                     content=chunk["wav_bytes"],
-                )
+                ),
+                timeout=120,
             )
             chunk_result = _parse_v2_stt_response(response, language_code)
         except Exception as exc:

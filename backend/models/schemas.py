@@ -1,5 +1,5 @@
 ﻿from pydantic import BaseModel
-from typing import Dict, List, Optional
+from typing import List, Optional
 from datetime import datetime
 
 
@@ -17,19 +17,6 @@ class SpeakerSegment(BaseModel):
     text: str
     start_time: float
     end_time: float
-
-
-class IntentPrediction(BaseModel):
-    label: str
-    confidence: float
-    scores: Optional[Dict[str, float]] = None
-    model: Optional[str] = None
-
-
-class SentimentResult(BaseModel):
-    label: Optional[str] = None
-    score: Optional[float] = None
-    model: Optional[str] = None
 
 
 class TranscriptionMeta(BaseModel):
@@ -54,8 +41,6 @@ class CallAnalysisResponse(BaseModel):
     duration_seconds: Optional[float] = None
     full_transcript: str
     speaker_segments: List[SpeakerSegment]
-    category: IntentPrediction
-    sentiment: Optional[SentimentResult] = None
     transcription_meta: Optional[TranscriptionMeta] = None
 
 
@@ -65,8 +50,6 @@ class CallSummary(BaseModel):
     file_name: str
     detected_language: Optional[str] = None
     duration_seconds: Optional[float] = None
-    category: IntentPrediction
-    sentiment: Optional[SentimentResult] = None
     preview: Optional[str] = None
 
 

@@ -1,4 +1,3 @@
-import { getCategoryColor, getCategoryLabel } from '../App';
 import './AnalyticsPanel.css';
 
 const formatCount = (value) => {
@@ -27,7 +26,6 @@ function AnalyticsPanel({ analytics }) {
         <div className="category-bars">
           {categoryCounts.length === 0 && <p className="empty-text">No analytics data yet.</p>}
           {categoryCounts.map((item, index) => {
-            const color = getCategoryColor(item.category);
             const percentage = (item.count / maxCategory) * 100;
             return (
               <div
@@ -35,15 +33,14 @@ function AnalyticsPanel({ analytics }) {
                 className="bar-row"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
-                <span className="bar-label" style={{ color }}>
-                  {getCategoryLabel(item.category)}
+                <span className="bar-label">
+                  {item.category}
                 </span>
                 <div className="bar-track">
                   <div
                     className="bar-fill"
                     style={{
                       width: `${percentage}%`,
-                      background: color,
                       animationDelay: `${index * 0.1 + 0.2}s`,
                     }}
                   ></div>

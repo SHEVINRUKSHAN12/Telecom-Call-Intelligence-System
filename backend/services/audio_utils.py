@@ -354,7 +354,8 @@ def convert_to_wav(
     logger.info("Original audio: duration=%.1fs, rate=%dHz, channels=%d",
                 audio.duration_seconds, original_rate, original_channels)
 
-    # Force mono + 16-bit + 16kHz for LINEAR16 encoding
+    # Force mono + 16-bit + 16kHz for the latest_long model.
+    # latest_long requires 16kHz input for its full neural Sinhala language model.
     audio = audio.set_channels(1)
     audio = audio.set_sample_width(2)  # 16-bit
     audio = audio.set_frame_rate(16000)

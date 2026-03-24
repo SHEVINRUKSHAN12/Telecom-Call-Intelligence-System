@@ -50,3 +50,7 @@ Thumbs.db
 .logs/
 sizes.txt
 sizes2.txt
+
+# SQLite database
+backend/data/calls.db
+backend/data/*.db

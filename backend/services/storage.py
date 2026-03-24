@@ -41,9 +41,9 @@ def upload_audio_to_gcs(audio_bytes: bytes, filename: str, content_type: Optiona
     }
 
     if content_type:
-        blob.upload_from_string(audio_bytes, content_type=content_type)
+        blob.upload_from_string(audio_bytes, content_type=content_type, timeout=300, num_retries=3)
     else:
-        blob.upload_from_string(audio_bytes)
+        blob.upload_from_string(audio_bytes, timeout=300, num_retries=3)
 
     return {
         "gcs_uri": f"gs://{bucket_name}/{blob_name}",

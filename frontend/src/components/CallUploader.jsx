@@ -14,8 +14,7 @@ const supportedTypes = [
 
 const STAGES = [
   { key: 'upload', label: 'Uploading audio', icon: '⬆' },
-  { key: 'transcribe', label: 'Transcribing speech', icon: '🎤' },
-  { key: 'classify', label: 'Classifying intent', icon: '🧠' },
+  { key: 'transcribe', label: 'Transcribing speech — please wait, this can take 1-2 mins', icon: '🎤' },
   { key: 'done', label: 'Complete', icon: '✓' },
 ];
 
@@ -26,6 +25,7 @@ function CallUploader({ onComplete, onError }) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [currentStage, setCurrentStage] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [language, setLanguage] = useState('SI');
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -48,7 +48,6 @@ function CallUploader({ onComplete, onError }) {
   useEffect(() => {
     if (!isLoading) return;
     if (elapsedTime >= 3 && currentStage === 0) setCurrentStage(1);
-    if (elapsedTime >= 8 && currentStage === 1) setCurrentStage(2);
   }, [elapsedTime, isLoading, currentStage]);
 
   const formatTime = (seconds) => {
@@ -95,13 +94,19 @@ function CallUploader({ onComplete, onError }) {
     setUploadProgress(5);
 
     const progressInterval = setInterval(() => {
-      setUploadProgress((prev) => Math.min(prev + 5, 92));
+      setUploadProgress((prev) => {
+        if (prev >= 92) {
+          // Slowly creep from 92 toward 98 to show it's still working
+          return Math.min(prev + 0.3, 98);
+        }
+        return Math.min(prev + 5, 92);
+      });
     }, 800);
 
     try {
-      const result = await uploadCall(selectedFile);
+      const result = await uploadCall(selectedFile, language);
       setUploadProgress(100);
-      setCurrentStage(3);
+      setCurrentStage(2);
       setTimeout(() => onComplete?.(result), 600);
     } catch (error) {
       onError?.(error.message);
@@ -125,13 +130,23 @@ function CallUploader({ onComplete, onError }) {
           <p className="uploader-eyebrow">New Analysis</p>
           <h3>Upload Call Recording</h3>
           <p className="uploader-subtitle">
-            AI-powered diarization, transcription & intent classification
+            AI-powered diarization & transcription
           </p>
         </div>
         <div className="uploader-badge">
-          <span className="lang-tag">SI</span>
-          <span className="lang-divider">+</span>
-          <span className="lang-tag">EN</span>
+          <button
+            className={`lang-tag ${language === 'SI' ? 'active' : ''}`}
+            onClick={() => setLanguage('SI')}
+            title="Sinhala"
+            style={{ cursor: 'pointer', fontWeight: language === 'SI' ? 700 : 400, opacity: language === 'SI' ? 1 : 0.45 }}
+          >SI</button>
+          <span className="lang-divider">|</span>
+          <button
+            className={`lang-tag ${language === 'EN' ? 'active' : ''}`}
+            onClick={() => setLanguage('EN')}
+            title="English"
+            style={{ cursor: 'pointer', fontWeight: language === 'EN' ? 700 : 400, opacity: language === 'EN' ? 1 : 0.45 }}
+          >EN</button>
         </div>
       </div>
 
