@@ -82,6 +82,7 @@ def _build_transcription_meta(
     pipeline_used: str,
     fallback_used: bool,
     fallback_attempted: bool,
+    stt_engine: Optional[str] = None,
 ) -> Dict:
     return {
         "pipeline_used": pipeline_used,
@@ -94,6 +95,7 @@ def _build_transcription_meta(
         "quality_passed": bool(quality_passed),
         "fallback_used": bool(fallback_used),
         "fallback_attempted": bool(fallback_attempted),
+        "stt_engine": stt_engine or result.get("stt_engine"),
     }
 
 
@@ -938,6 +940,54 @@ def transcribe_with_hybrid_fallback(
     enable_diarization: bool = True,
     use_hybrid_fallback: bool = True,
 ) -> Dict:
+    # ── Gemini primary (if STT_GEMINI_ENABLED=true) ───────────────────────────
+    from backend.services.gemini_stt import is_gemini_enabled, transcribe_wav_with_gemini, get_gemini_model_name
+    if is_gemini_enabled():
+        gemini_model = get_gemini_model_name()
+        logger.info("Gemini STT primary: model=%s, language=%s", gemini_model, language_code)
+        try:
+            gemini_result = transcribe_wav_with_gemini(
+                wav_bytes=wav_bytes,
+                language_code=language_code,
+                model_name=gemini_model,
+                chunk_target_seconds=chunk_target_seconds,
+                chunk_max_seconds=chunk_max_seconds,
+                chunk_min_seconds=chunk_min_seconds,
+                chunk_min_silence_ms=chunk_min_silence_ms,
+                chunk_overlap_seconds=chunk_overlap_seconds,
+            )
+            gemini_metrics = _collect_quality_metrics(gemini_result)
+            gemini_pass = _passes_quality_gate(
+                gemini_metrics,
+                min_confidence=min_confidence,
+                max_empty_chunk_ratio=max_empty_chunk_ratio,
+                min_transcript_chars=min_transcript_chars,
+                confidence_available=False,   # Gemini has no confidence score
+            )
+            if gemini_pass and (gemini_result.get("full_transcript") or "").strip():
+                return {
+                    "result": gemini_result,
+                    "quality": gemini_metrics,
+                    "quality_passed": True,
+                    "transcription_meta": _build_transcription_meta(
+                        result=gemini_result,
+                        metrics=gemini_metrics,
+                        quality_passed=True,
+                        pipeline_used=f"gemini_primary:{gemini_model}",
+                        fallback_used=False,
+                        fallback_attempted=False,
+                    ),
+                    "chunked_quality": gemini_metrics,
+                    "fallback_quality": None,
+                }
+            logger.warning(
+                "Gemini STT did not pass quality gate; falling back to Chirp/V1. transcript_len=%d",
+                len((gemini_result.get("full_transcript") or "").strip()),
+            )
+        except Exception as exc:
+            logger.warning("Gemini STT failed; falling back to Chirp/V1: %s", exc)
+
+    # ── Chirp 2 primary (if STT_V2_ENABLED=true and Gemini not used) ─────────
     if _should_use_v2_primary(language_code, alternative_language_codes, enable_diarization):
         region = (os.getenv("STT_V2_REGION", "asia-southeast1") or "asia-southeast1").strip()
         model = (os.getenv("STT_V2_MODEL", "chirp_2") or "chirp_2").strip()

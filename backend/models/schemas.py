@@ -31,6 +31,7 @@ class TranscriptionMeta(BaseModel):
     fallback_used: bool = False
     fallback_attempted: bool = False
     diarization_mode: Optional[str] = None
+    stt_engine: Optional[str] = None
 
 
 class CallAnalysisResponse(BaseModel):

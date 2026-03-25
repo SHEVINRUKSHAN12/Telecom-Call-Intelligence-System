@@ -8,3 +8,5 @@ python-dotenv==1.0.0
 pydub==0.25.1
 aiosqlite
 dnspython
+# Optional: only needed if STT_GEMINI_ENABLED=true
+google-cloud-aiplatform
