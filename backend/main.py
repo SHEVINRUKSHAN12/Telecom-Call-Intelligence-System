@@ -25,6 +25,7 @@ logging.basicConfig(level=logging.INFO)
 
 # Import routes
 from backend.routes.calls import router as calls_router
+from backend.routes.pricing import router as pricing_router
 from backend.services.mongodb import init_db
 
 app = FastAPI(
@@ -44,6 +45,7 @@ app.add_middleware(
 
 # Register routes
 app.include_router(calls_router, prefix="/api", tags=["Calls"])
+app.include_router(pricing_router, prefix="/api", tags=["STT Pricing"])
 
 
 @app.on_event("startup")

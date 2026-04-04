@@ -1,14 +1,14 @@
 const host = window.location.hostname;
 const apiHost = host === '0.0.0.0' || host === '' || host === 'localhost' ? '127.0.0.1' : host;
-const API_BASE_URL = `${window.location.protocol}//${apiHost}:8000/api`;
-const HEALTH_URL = `${window.location.protocol}//${apiHost}:8000/health`;
+const API_BASE_URL = `${window.location.protocol}//${apiHost}:8007/api`;
+const HEALTH_URL = `${window.location.protocol}//${apiHost}:8007/health`;
 
 async function requestJson(url, options) {
     try {
         const response = await fetch(url, options);
         return response;
     } catch (error) {
-        throw new Error(`Cannot reach backend at ${API_BASE_URL}. Ensure backend is running on port 8000.`);
+        throw new Error(`Cannot reach backend at ${API_BASE_URL}. Ensure backend is running on port 8007.`);
     }
 }
 

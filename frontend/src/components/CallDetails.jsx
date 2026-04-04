@@ -119,7 +119,17 @@ function CallDetails({ call }) {
   const callIdSuffix = call.id ? call.id.slice(-6).toUpperCase() : '------';
 
   const avgConf = call.transcription_meta?.avg_confidence ?? null;
-  const confQuality = getQualityFromConfidence(avgConf);
+  const sttEngine = (call.transcription_meta?.stt_engine || '').toLowerCase();
+  const isGeminiEngine = sttEngine.includes('gemini');
+
+  // Gemini doesn't return confidence scores — show a neutral indicator instead of "Poor"
+  const confQuality = (isGeminiEngine && (avgConf === null || avgConf === 0))
+    ? { label: 'AI Model', color: '#8b5cf6', bg: 'rgba(139,92,246,0.12)', wer: 'Use WER calculator ↓' }
+    : getQualityFromConfidence(avgConf);
+
+  const confDisplay = (isGeminiEngine && (avgConf === null || avgConf === 0))
+    ? 'N/A'
+    : (avgConf !== null ? `${(avgConf * 100).toFixed(1)}%` : '—');
 
   const handleCalculateWER = () => {
     if (!refTranscript.trim() || !call.full_transcript) return;
@@ -224,7 +234,7 @@ function CallDetails({ call }) {
         <div className="stat-card">
           <span>Confidence</span>
           <strong style={{ color: confQuality.color }}>
-            {avgConf !== null ? `${(avgConf * 100).toFixed(1)}%` : '—'}
+            {confDisplay}
           </strong>
         </div>
         <div className="stat-card quality-card" style={{ '--quality-color': confQuality.color, '--quality-bg': confQuality.bg }}>
@@ -232,7 +242,11 @@ function CallDetails({ call }) {
           <strong className="quality-badge-inline" style={{ color: confQuality.color }}>
             {confQuality.label}
           </strong>
-          <span className="quality-wer-hint">WER ≈ {confQuality.wer}</span>
+          <span className="quality-wer-hint">
+            {isGeminiEngine && (avgConf === null || avgConf === 0)
+              ? confQuality.wer
+              : `WER ≈ ${confQuality.wer}`}
+          </span>
         </div>
       </div>
 
