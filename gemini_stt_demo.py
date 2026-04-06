@@ -42,14 +42,13 @@ from datetime import datetime
 TOKENS_PER_SECOND = 25        # Google charges 25 audio tokens per second
 LKR_PER_USD       = 320       # Exchange rate — updated by fetch_live_lkr_rate()
 
-# Active Gemini models — audio input prices from cloud.google.com/vertex-ai/generative-ai/pricing
-# Gemini 2.5 Pro:   $1.25/1M tokens (<=200K context) — same price on AI Studio paid & Vertex AI
-# Gemini 2.5 Flash: $1.00/1M tokens
-# Gemini 3 Flash:   $1.00/1M tokens
+# Active Gemini models — prices from cloud.google.com/vertex-ai/generative-ai/pricing
+# Input  = audio tokens charged at audio input rate
+# Output = transcript text tokens charged at text output rate
 GEMINI_MODELS = {
-    "gemini-3-flash":   {"price_per_million": 1.00, "label": "Gemini 3 Flash    (newest)"},
-    "gemini-2.5-pro":   {"price_per_million": 1.25, "label": "Gemini 2.5 Pro    (high accuracy)"},
-    "gemini-2.5-flash": {"price_per_million": 1.00, "label": "Gemini 2.5 Flash  (recommended)"},
+    "gemini-3-flash":   {"price_per_million": 1.00, "output_price_per_million": 3.00,  "label": "Gemini 3 Flash    (newest)"},
+    "gemini-2.5-pro":   {"price_per_million": 1.25, "output_price_per_million": 10.00, "label": "Gemini 2.5 Pro    (high accuracy)"},
+    "gemini-2.5-flash": {"price_per_million": 1.00, "output_price_per_million": 2.50,  "label": "Gemini 2.5 Flash  (recommended)"},
 }
 
 # Chirp 2: billed per minute of audio
@@ -308,37 +307,50 @@ CHIRP2_LABEL            = "Chirp 2 (STT V2)  (confidence score)"
 # SECTION 1 — COST CALCULATORS
 # ─────────────────────────────────────────────────────────────────────────────
 
-def calculate_gemini_cost(duration_seconds: float, model_name: str) -> dict:
+def calculate_gemini_cost(duration_seconds: float, model_name: str,
+                          output_tokens: int = 0) -> dict:
     """
     Calculate the real cost of transcribing audio with a Gemini model.
-    Uses live prices from Google Cloud Billing API when available.
+    Includes BOTH input (audio) and output (transcript text) costs.
 
     Formula:
-        tokens        = duration_seconds × 25
-        cost_usd      = (tokens ÷ 1,000,000) × price_per_million_tokens
-        cost_per_hour = (3600 × 25 ÷ 1,000,000) × price_per_million_tokens
+        input_tokens   = duration_seconds × 25
+        input_cost     = (input_tokens  ÷ 1,000,000) × input_price_per_million
+        output_cost    = (output_tokens ÷ 1,000,000) × output_price_per_million
+        total_cost     = input_cost + output_cost
     """
-    info              = GEMINI_MODELS.get(model_name, {"price_per_million": 1.00, "label": model_name})
-    price_per_million, price_source = get_gemini_price(model_name)
+    info                    = GEMINI_MODELS.get(model_name, {"price_per_million": 1.00,
+                                                              "output_price_per_million": 2.50,
+                                                              "label": model_name})
+    input_price_per_million, price_source = get_gemini_price(model_name)
+    output_price_per_million = info.get("output_price_per_million", 2.50)
 
-    tokens           = duration_seconds * TOKENS_PER_SECOND
-    cost_usd         = (tokens / 1_000_000) * price_per_million
-    cost_lkr         = cost_usd * LKR_PER_USD
-    cost_per_hr_usd  = (3600 * TOKENS_PER_SECOND / 1_000_000) * price_per_million
+    input_tokens     = duration_seconds * TOKENS_PER_SECOND
+    input_cost_usd   = (input_tokens  / 1_000_000) * input_price_per_million
+    output_cost_usd  = (output_tokens / 1_000_000) * output_price_per_million
+    total_cost_usd   = input_cost_usd + output_cost_usd
+    total_cost_lkr   = total_cost_usd * LKR_PER_USD
+
+    # Per-hour rate based on input only (standard benchmark)
+    cost_per_hr_usd  = (3600 * TOKENS_PER_SECOND / 1_000_000) * input_price_per_million
     cost_per_hr_lkr  = cost_per_hr_usd * LKR_PER_USD
 
     return {
-        "engine":            "gemini",
-        "model":             model_name,
-        "label":             info["label"],
-        "duration_seconds":  duration_seconds,
-        "tokens_used":       int(tokens),
-        "price_per_million": price_per_million,
-        "price_source":      price_source,
-        "cost_usd":          cost_usd,
-        "cost_lkr":          cost_lkr,
-        "cost_per_hr_usd":   cost_per_hr_usd,
-        "cost_per_hr_lkr":   cost_per_hr_lkr,
+        "engine":                    "gemini",
+        "model":                     model_name,
+        "label":                     info["label"],
+        "duration_seconds":          duration_seconds,
+        "input_tokens":              int(input_tokens),
+        "output_tokens":             output_tokens,
+        "input_price_per_million":   input_price_per_million,
+        "output_price_per_million":  output_price_per_million,
+        "input_cost_usd":            input_cost_usd,
+        "output_cost_usd":           output_cost_usd,
+        "price_source":              price_source,
+        "cost_usd":                  total_cost_usd,
+        "cost_lkr":                  total_cost_lkr,
+        "cost_per_hr_usd":           cost_per_hr_usd,
+        "cost_per_hr_lkr":           cost_per_hr_lkr,
     }
 
 
@@ -386,15 +398,20 @@ def print_cost(cost: dict):
     print(f"  Audio duration  : {cost['duration_seconds']:.1f} seconds")
 
     if cost["engine"] == "gemini":
-        print(f"  Tokens used     : {cost['tokens_used']:,}  ({TOKENS_PER_SECOND} tokens/sec)")
-        print(f"  Price rate      : ${cost['price_per_million']:.4f} per 1M tokens")
+        print(f"  Input tokens    : {cost['input_tokens']:,}  ({TOKENS_PER_SECOND} tokens/sec audio)")
+        print(f"  Output tokens   : {cost['output_tokens']:,}  (transcript text)")
+        print(f"  Input price     : ${cost['input_price_per_million']:.4f} per 1M tokens")
+        print(f"  Output price    : ${cost['output_price_per_million']:.4f} per 1M tokens")
     else:
         minutes = cost['duration_seconds'] / 60
         print(f"  Minutes billed  : {minutes:.3f} min")
         print(f"  Price rate      : ${cost['price_per_minute']:.4f} per minute")
 
     print(f"  LKR rate        : 1 USD = {LKR_PER_USD:.2f} LKR")
-    print(f"  ────────────────────────────────────────────")
+    print(f"  {'─' * 44}")
+    if cost["engine"] == "gemini":
+        print(f"  Input cost      : ${cost['input_cost_usd']:.6f} USD  (audio)")
+        print(f"  Output cost     : ${cost['output_cost_usd']:.6f} USD  (transcript)")
     print(f"  This file cost  : ${cost['cost_usd']:.6f} USD")
     print(f"                    LKR {cost['cost_lkr']:.4f}")
     print(f"  ────────────────────────────────────────────")
@@ -563,8 +580,15 @@ def transcribe_with_gemini(wav_bytes: bytes, duration_seconds: float, model_name
     response   = model.generate_content([audio_part, prompt])
     elapsed    = time.time() - start_time
 
-    transcript = (response.text or "").strip()
-    cost       = calculate_gemini_cost(duration_seconds, model_name)
+    transcript    = (response.text or "").strip()
+    # Get actual output token count from Gemini response metadata
+    output_tokens = 0
+    try:
+        output_tokens = response.usage_metadata.candidates_token_count or 0
+    except Exception:
+        # Fallback: estimate ~1.5 tokens per character for Sinhala Unicode
+        output_tokens = int(len(transcript) * 1.5)
+    cost          = calculate_gemini_cost(duration_seconds, model_name, output_tokens)
 
     print(f"     Done in {elapsed:.1f}s  |  {'✅ got transcript' if transcript else '⚠️  empty response'}")
 
