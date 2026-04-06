@@ -39,7 +39,7 @@ from datetime import datetime
 # These are hardcoded as a safety net — the script always tries live prices first
 # ─────────────────────────────────────────────────────────────────────────────
 
-TOKENS_PER_SECOND = 25        # Google charges 25 audio tokens per second
+TOKENS_PER_SECOND = 32        # Google charges 32 audio tokens per second (Gemini 2.5+)
 LKR_PER_USD       = 320       # Exchange rate — updated by fetch_live_lkr_rate()
 
 # Active Gemini models — prices from cloud.google.com/vertex-ai/generative-ai/pricing
